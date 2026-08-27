@@ -47,57 +47,17 @@ function initMobileMenu() {
   const toggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('nav');
   if (!toggle || !nav) return;
-
-  const closeAllMenus = () => {
-    document.querySelectorAll('nav li.open').forEach(li => li.classList.remove('open'));
-    document.querySelectorAll('nav li.open-sub').forEach(li => li.classList.remove('open-sub'));
-  };
-
   toggle.addEventListener('click', () => {
-    const willOpen = !nav.classList.contains('open');
-    nav.classList.toggle('open', willOpen);
-    toggle.classList.toggle('open', willOpen);
-    if (!willOpen) closeAllMenus();
+    nav.classList.toggle('open');
+    toggle.classList.toggle('open');
   });
-
   document.querySelectorAll('nav > ul > li > a').forEach(link => {
     const parent = link.parentElement;
-    if (parent.querySelector(':scope > .dropdown')) {
+    if (parent.querySelector('.dropdown')) {
       link.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
           e.preventDefault();
-          const wasOpen = parent.classList.contains('open');
-          document.querySelectorAll('nav > ul > li.open').forEach(li => {
-            if (li !== parent) li.classList.remove('open');
-          });
-          document.querySelectorAll('nav li.open-sub').forEach(li => li.classList.remove('open-sub'));
-          parent.classList.toggle('open', !wasOpen);
-        }
-      });
-    }
-  });
-
-  document.querySelectorAll('nav .dropdown li.has-sub > a').forEach(link => {
-    const parent = link.parentElement;
-    link.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        const wasOpen = parent.classList.contains('open-sub');
-        parent.parentElement.querySelectorAll(':scope > li.open-sub').forEach(li => {
-          if (li !== parent) li.classList.remove('open-sub');
-        });
-        parent.classList.toggle('open-sub', !wasOpen);
-      }
-    });
-  });
-
-  document.querySelectorAll('nav a').forEach(link => {
-    if (!link.parentElement.querySelector('.dropdown, .sub-dropdown')) {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-          nav.classList.remove('open');
-          toggle.classList.remove('open');
-          closeAllMenus();
+          parent.classList.toggle('open');
         }
       });
     }
