@@ -876,7 +876,9 @@ footer {
 @media (max-width: 768px) {
   :root { --nav-h: 64px; }
   .container { padding: 0 20px; }
-  .menu-toggle { display: flex; }
+  .header-inner,
+  html[lang="ar"] .header-inner { flex-direction: row; }
+  .menu-toggle { display: flex; margin-left: auto; margin-right: 0; }
   nav {
     position: fixed; top: var(--nav-h); left: 0; right: 0;
     background: #fff; box-shadow: 0 8px 32px rgba(6,20,38,0.12);
