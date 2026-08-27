@@ -8,7 +8,13 @@ const ADMIN_PASS = process.env.ADMIN_PASSWORD;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '7d',
+  etag: true,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
+  }
+}));
 
 app.use('/api/products', require('./routes/api'));
 app.use('/api/contact', require('./routes/contact'));

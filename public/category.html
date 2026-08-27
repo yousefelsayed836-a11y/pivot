@@ -64,10 +64,11 @@ function productCard(p) {
   document.getElementById('categoryTitle').textContent = cfg.title;
   document.getElementById('crumbTitle').textContent = cfg.title;
   document.getElementById('categoryDesc').textContent = cfg.desc;
-  const res = await fetch('/api/products?category=' + encodeURIComponent(cfg.category));
-  const products = await res.json();
-  const subs = cfg.subs || [cfg.sub];
-  const filtered = products.filter(p => subs.includes(p.subcategory));
+  const params = new URLSearchParams({ category: cfg.category });
+  if (cfg.subs) params.set('subcategories', cfg.subs.join(','));
+  else params.set('subcategory', cfg.sub);
+  const res = await fetch('/api/products?' + params.toString());
+  const filtered = await res.json();
   document.getElementById('categoryGrid').innerHTML = filtered.length ? filtered.map(productCard).join('') : '<p style="grid-column:1/-1;color:var(--text-light)">No products found in this category.</p>';
 })();
 </script>

@@ -31,10 +31,15 @@ function adminAuth(req, res, next) {
 // GET /api/products — list all or by category
 router.get('/', (req, res) => {
   const db = readDB();
-  const { category } = req.query;
-  const products = category
-    ? db.products.filter(p => p.category === category)
-    : db.products;
+  const { category, subcategory, subcategories } = req.query;
+  let products = db.products;
+  if (category) products = products.filter(p => p.category === category);
+  if (subcategory) products = products.filter(p => p.subcategory === subcategory);
+  if (subcategories) {
+    const allowed = String(subcategories).split(',').map(s => s.trim()).filter(Boolean);
+    products = products.filter(p => allowed.includes(p.subcategory));
+  }
+  res.set('Cache-Control', 'public, max-age=60');
   res.json(products);
 });
 
