@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pivot Communication — Enterprise Infrastructure & Connectivity</title>
+  <meta name="description" content="Advanced infrastructure, data centre, telecom, and connectivity solutions engineered for performance, reliability, and scale.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231478E8'/><text y='70' x='50' text-anchor='middle' font-size='60' fill='white' font-family='Arial' font-weight='bold'>P</text></svg>">
+  <style>
+    .hero-picture{position:absolute;inset:0}
+    .hero-picture img{width:100%;height:100%;object-fit:cover;object-position:center}
+    .hero-overlay-home{position:absolute;inset:0;background:linear-gradient(100deg,rgba(6,20,38,.90) 0%,rgba(6,20,38,.60) 55%,rgba(6,20,38,.22) 100%)}
+    .products-stripe{background:#F4F7FA;padding:80px 0}
+    .products-stripe-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:24px}
+    .products-stripe-head h2{font-size:clamp(22px,2.8vw,34px);color:#061426;letter-spacing:-.02em;margin:0}
+    .products-stripe-head a{font-size:13px;font-weight:600;color:#1478E8;white-space:nowrap}
+    .banners-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .solutions-section{padding:96px 0;background:#fff}
+    .sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .why-section{padding:96px 0;background:#F4F7FA}
+    .why-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:56px}
+    .why-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .why-pill{padding:28px 24px;background:#fff;border:1px solid #E2E8F0;border-radius:8px}
+    .why-pill-icon{width:40px;height:40px;background:rgba(20,120,232,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+    .why-pill-icon svg{width:20px;height:20px;stroke:#1478E8;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+    .why-pill h3{font-size:15px;color:#061426;margin-bottom:8px}
+    .why-pill p{font-size:13px;color:#536273;line-height:1.7}
+    .cta-section{background:#061426;padding:96px 0;text-align:center}
+    .cta-section h2{font-size:clamp(26px,3.5vw,40px);color:#fff;margin-bottom:16px;letter-spacing:-.025em}
+    .cta-section p{font-size:16px;color:rgba(255,255,255,.55);margin-bottom:36px;max-width:440px;margin-inline:auto}
+    .about-strip{padding:96px 0}
+    .about-inner{max-width:700px}
+    .about-inner h2{font-size:clamp(24px,3vw,36px);color:#061426;margin-bottom:20px;letter-spacing:-.025em}
+    .about-inner p{font-size:15px;color:#536273;line-height:1.85;margin-bottom:14px}
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:768px){
+      .banners-grid,.sol-grid,.why-pills,.certs-grid{grid-template-columns:1fr}
+      .why-intro{grid-template-columns:1fr;gap:24px;margin-bottom:40px}
+      .products-stripe-head{flex-direction:column;align-items:flex-start}
+    }
+    @media(min-width:769px) and (max-width:1000px){.sol-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+
+<div id="pageLoader" class="page-loader">
+  <div class="loader-inner">
+    <img src="/img/pivot-logo-transparent.png" alt="Pivot" class="loader-logo">
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+</div>
+
+<header>
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <img src="/img/pivot-logo-transparent.png" alt="Pivot Communication" class="logo-img">
+    </a>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="/" class="active">Home</a></li>
+        <li>
+          <a href="/solutions">Solutions <span class="arrow">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="/datacentres">Datacentre Solutions</a></li>
+            <li><a href="/telecom">Telecom Solutions</a></li>
+            <li><a href="/hdci">HDCI Solutions</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="/products">Products <span class="arrow">&#9662;</span></a>
+          <ul class="dropdown">
+            <li class="has-sub"><a href="/products-copper">Copper Solutions</a>
+              <ul class="sub-dropdown">
+                <li><a href="/category/copper-cable">Copper Cable</a></li>
+                <li><a href="/category/copper-assemblies">Assemblies</a></li>
+                <li><a href="/category/copper-management">Management</a></li>
+                <li><a href="/category/copper-connectivity">Connectivity</a></li>
+                <li><a href="/category/copper-datacentre">Datacentre</a></li>
+              </ul>
+            </li>
+            <li class="has-sub">
+              <a href="/datacentres">Datacentre Solutions</a>
+              <ul class="sub-dropdown">
+                <li><a href="/hdci">HDCI Solutions</a></li>
+                <li><a href="/uhdci">Hyperscale UHDCi&#174;</a></li>
+              </ul>
+            </li>
+            <li class="has-sub">
+              <a href="/products-fibre">Fibre Optic Solutions</a>
+              <ul class="sub-dropdown">
+                <li><a href="/category/fibre-internal-management">Internal &amp; External Management</a></li>
+                <li><a href="/category/fibre-mpo-mtp-solutions">MTP&#174;/MPO Solutions</a></li>
+                <li><a href="/category/fibre-multi-fibre-assemblies">Multi-Fibre Assemblies</a></li>
+                <li><a href="/category/fibre-optic-cable">Fibre Optic Cable</a></li>
+                <li><a href="/category/fibre-optic-components">Fibre Optic Components</a></li>
+                <li><a href="/category/fibre-active-equipment">Active Equipment</a></li>
+                <li><a href="/category/fibre-active-optical-cables">Active Optical Cables (AOC)</a></li>
+                <li><a href="/category/fibre-active-components">Active Components</a></li>
+                <li><a href="/category/fibre-cabinets">Cabinets</a></li>
+                <li><a href="/category/fibre-flexplane">High Density Fibre Optic Circuit Flexplane</a></li>
+              </ul>
+            </li>
+            <li><a href="/telecom">Telecom</a></li>
+          </ul>
+        </li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact" class="nav-contact-btn">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <picture class="hero-picture">
+    <source media="(max-width:767px)" srcset="/img/uploads/hero-mobile.jpg">
+    <img src="/img/uploads/hero-desktop.png" alt="Pivot Communication Infrastructure"
+         onerror="this.onerror=null;this.src='/img/uploads/site-hero.png'">
+  </picture>
+  <div class="hero-overlay-home"></div>
+  <div class="container">
+    <div class="hero-content reveal">
+      <span class="hero-eyebrow">Enterprise Infrastructure &amp; Connectivity</span>
+      <h1>Building the Infrastructure<br>Behind What's Next.</h1>
+      <p>Advanced infrastructure, data centre, telecom, and connectivity solutions engineered for performance, reliability, and scale.</p>
+      <div class="hero-btns">
+        <a href="/contact" class="btn btn-primary">Get In Touch</a>
+        <a href="/solutions" class="btn btn-outline">Explore Solutions</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- PRODUCT BANNERS -->
+<section class="products-stripe">
+  <div class="container">
+    <div class="products-stripe-head reveal">
+      <h2>Products for All Your Connectivity Needs</h2>
+      <a href="/products">View all products &#8594;</a>
+    </div>
+    <div class="img-overlay-grid-2 reveal">
+      <a href="/products-copper" class="img-overlay-card">
+        <img src="/img/uploads/copper-hero.png" alt="Copper Solutions">
+        <div class="card-overlay">
+          <span class="card-tag">Products</span>
+          <h3>Copper Solutions</h3>
+          <span class="card-sub">Cat 5e to Cat 8 cables, patch panels &amp; assemblies.</span>
+          <span class="card-btn">View Products &#8594;</span>
+        </div>
+      </a>
+      <a href="/products-fibre" class="img-overlay-card">
+        <img src="/img/uploads/fibre-hero.png" alt="Fibre Optic Solutions">
+        <div class="card-overlay">
+          <span class="card-tag">Products</span>
+          <h3>Fibre Optic Solutions</h3>
+          <span class="card-sub">MPO/MTP&#174;, multi-fibre cables, AOC &amp; active equipment.</span>
+          <span class="card-btn">View Products &#8594;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="solutions-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Our Solutions</span>
+      <h2>Infrastructure Built for Demanding Environments</h2>
+      <p style="color:#536273;font-size:15px;max-width:520px;margin-top:6px;line-height:1.75">Proven solutions across HDCI, datacentre, and telecom — designed for reliability, scale, and long-term performance.</p>
+    </div>
+    <div class="img-overlay-grid reveal">
+      <a href="/hdci" class="img-overlay-card">
+        <img src="/img/uploads/hdci-solutions.png" alt="HDCI Solutions" onerror="this.onerror=null;this.src='/img/uploads/hdci-hero.png'">
+        <div class="card-overlay">
+          <span class="card-tag">Solutions</span>
+          <h3>HDCi&#174; Solutions</h3>
+          <span class="card-sub">High Density Converged Infrastructure.</span>
+          <span class="card-btn">Learn More &#8594;</span>
+        </div>
+      </a>
+      <a href="/datacentres" class="img-overlay-card">
+        <img src="/img/uploads/datacentre-solutions.png" alt="Datacentre Solutions" onerror="this.onerror=null;this.src='/img/uploads/datacentre-hero.png'">
+        <div class="card-overlay">
+          <span class="card-tag">Solutions</span>
+          <h3>Datacentre Solutions</h3>
+          <span class="card-sub">Secure. Robust. Reliable.</span>
+          <span class="card-btn">Learn More &#8594;</span>
+        </div>
+      </a>
+      <a href="/telecom" class="img-overlay-card">
+        <img src="/img/uploads/telecom-solutions.jpg" alt="Telecom Solutions" onerror="this.onerror=null;this.src='/img/uploads/telecom-hero.png'">
+        <div class="card-overlay">
+          <span class="card-tag">Solutions</span>
+          <h3>Telecom Solutions</h3>
+          <span class="card-sub">Optimize. Expand. Grow.</span>
+          <span class="card-btn">Learn More &#8594;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY PIVOT -->
+<section style="background:#fff;padding:80px 0">
+  <div class="container">
+
+    <!-- 2-col editorial -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start" class="reveal">
+      <div>
+        <p style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#1478E8;margin-bottom:16px">Who we are</p>
+        <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:800;color:#061426;letter-spacing:-.03em;line-height:1.18;margin-bottom:24px">We stock what others source.<br>We know what others Google.</h2>
+        <p style="font-size:15px;color:#536273;line-height:1.85;margin-bottom:16px">Pivot Communication has been supplying structured cabling and datacentre infrastructure to Egypt's systems integrators. We keep deep stock of the products that matter — copper, fibre, HDCi, and telecom — so your project doesn't wait on a procurement cycle.</p>
+        <p style="font-size:15px;color:#536273;line-height:1.85;margin-bottom:16px">Our team has handled deployments from single comms rooms to multi-site enterprise rollouts. When a spec looks unusual or a lead time is tight, that experience is what you're buying.</p>
+        <div style="display:inline-flex;align-items:center;gap:14px;background:linear-gradient(135deg,#EBF3FF 0%,#D6E9FF 100%);border:1.5px solid #1478E8;border-radius:12px;padding:18px 28px;margin-top:16px;box-shadow:0 2px 12px rgba(20,120,232,.15)">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1478E8;margin-bottom:4px">Optronics Plus · Egypt</div>
+            <div style="font-size:22px;font-weight:800;color:#061426;letter-spacing:-.02em;line-height:1.1">Official Distributor</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;gap:20px;padding:22px 0;border-bottom:1px solid #F0F4F8;align-items:flex-start">
+          <div style="width:36px;height:36px;background:#EBF3FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14.5px;font-weight:700;color:#061426;margin-bottom:4px">Same-day quotation</div>
+            <div style="font-size:13.5px;color:#536273;line-height:1.65">Send us a BOM or spec sheet — we turn quotes around fast, without back-and-forth.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;padding:22px 0;border-bottom:1px solid #F0F4F8;align-items:flex-start">
+          <div style="width:36px;height:36px;background:#EBF3FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14.5px;font-weight:700;color:#061426;margin-bottom:4px">Pre-terminated &amp; tested</div>
+            <div style="font-size:13.5px;color:#536273;line-height:1.65">Factory-terminated assemblies arrive ready to deploy — no on-site splicing, no rework.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;padding:22px 0;border-bottom:1px solid #F0F4F8;align-items:flex-start">
+          <div style="width:36px;height:36px;background:#EBF3FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14.5px;font-weight:700;color:#061426;margin-bottom:4px">Reseller &amp; integrator pricing</div>
+            <div style="font-size:13.5px;color:#536273;line-height:1.65">Structured pricing tiers for volume buyers — consistent margins, no surprises per order.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;padding:22px 0;align-items:flex-start">
+          <div style="width:36px;height:36px;background:#EBF3FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14.5px;font-weight:700;color:#061426;margin-bottom:4px">Spec support on request</div>
+            <div style="font-size:13.5px;color:#536273;line-height:1.65">Not sure which product fits? Our technical team reviews your requirements and recommends the right solution.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-strip">
+  <div class="container">
+    <div class="about-inner reveal">
+      <span class="section-tag">About Pivot</span>
+      <h2>Egypt's Leading IT Infrastructure Partner.</h2>
+      <p>Pivot Communication is a leading IT supplier to system integrators and resellers across Egypt, established to provide professional IT solutions and telecommunications for industrial, commercial and residential needs.</p>
+      <p>We source, supply and support a range of fibre optic and connectivity products that cover the needs of any high-demand network infrastructure — from structured cabling to fibre optics, copper to telecom.</p>
+      <a href="/about" class="btn btn-dark" style="margin-top:24px">Learn More About Us &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section style="background:#F4F7FA;padding:96px 0">
+  <div class="container">
+    <div class="section-header reveal" style="margin-bottom:48px">
+      <span class="section-tag">Certifications</span>
+      <h2 style="font-size:clamp(24px,3vw,36px);color:#061426;letter-spacing:-.025em">Certified to Global Standards</h2>
+      <p style="font-size:15px;color:#536273;max-width:520px;margin-top:8px;line-height:1.75">Optronics Plus products meet the world's most stringent quality and compliance standards — from ISO to UL, Etisalat to GHMT.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px" class="reveal certs-grid">
+
+      <!-- ISO -->
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;overflow:hidden">
+        <div style="padding:18px 24px;border-bottom:1px solid #E2E8F0;display:flex;align-items:center;gap:12px">
+          <div style="width:36px;height:36px;background:#EBF3FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <span style="font-size:14px;font-weight:700;color:#061426">ISO Certificates</span>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">OptronicsPlus ISO 9001:2015 Certificate</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:16px 24px">
+<span style="font-size:13.5px;color:#374151">OptronicsPlus ISO 14001:2024 Certificate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UL -->
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;overflow:hidden">
+        <div style="padding:18px 24px;border-bottom:1px solid #E2E8F0;display:flex;align-items:center;gap:12px">
+          <div style="width:36px;height:36px;background:#EBF3FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span style="font-size:14px;font-weight:700;color:#061426">UL Certificates</span>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">OptronicsPlus UL Certificate</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">OptronicsPlus UL Certificate - Canada</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">OptronicsPlus UL Certificate - Communications Cable</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px">
+<span style="font-size:13.5px;color:#374151">OptronicsPlus UL Certificate - Communications Cable - Canada</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Etisalat -->
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;overflow:hidden">
+        <div style="padding:18px 24px;border-bottom:1px solid #E2E8F0;display:flex;align-items:center;gap:12px">
+          <div style="width:36px;height:36px;background:#EBF3FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <span style="font-size:14px;font-weight:700;color:#061426">Etisalat Certificates</span>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">Etisalat Approval of Copper Connectivity</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">Etisalat Approval of Fibre Optic Connectivity</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">Etisalat Approval of Fibre Optic Cables</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px">
+<span style="font-size:13.5px;color:#374151">Etisalat Approval - Optronics Fibre Optic PLC Splitters</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GHMT -->
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;overflow:hidden">
+        <div style="padding:18px 24px;border-bottom:1px solid #E2E8F0;display:flex;align-items:center;gap:12px">
+          <div style="width:36px;height:36px;background:#EBF3FF;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1478E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <span style="font-size:14px;font-weight:700;color:#061426">GHMT Certificates</span>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">GHMT Certificate - Cat 6A</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">GHMT Test Report - Cat 6A</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid #F4F7FA">
+<span style="font-size:13.5px;color:#374151">GHMT Certificate - Cat 6</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 24px">
+<span style="font-size:13.5px;color:#374151">GHMT Test Report - Cat 6</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container reveal">
+    <h2>Ready to Start Your Next Project?</h2>
+    <p>Talk to our infrastructure experts and discover the right solution for your business.</p>
+    <a href="/contact" class="btn btn-primary">Get In Touch &#8594;</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo">
+          <img src="/img/pivot-logo-white.svg" alt="Pivot Communication" class="logo-img" style="height:44px" onerror="this.onerror=null;this.src='/img/pivot-logo-transparent.png'">
+        </a>
+        <p>Egypt's leading IT supplier providing professional IT solutions and telecommunications for industrial, commercial and residential needs.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/products-copper">Copper Solutions</a></li>
+          <li><a href="/products-fibre">Fibre Optic Solutions</a></li>
+          <li><a href="/hdci">HDCI Solutions</a></li>
+          <li><a href="/products">All Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="/datacentres">Datacentre Solutions</a></li>
+          <li><a href="/telecom">Telecom Solutions</a></li>
+          <li><a href="/hdci">HDCI Solutions</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item">
+          <p><strong>Our Office</strong>Agora Mall &#8211; Building A<br>Floor 2, Office 7, Egypt</p>
+        </div>
+        <div class="footer-contact-item">
+          <p><strong>Email</strong><a href="mailto:Admin@pivotcommunication.net">Admin@pivotcommunication.net</a></p>
+        </div>
+        <div class="footer-contact-item">
+          <p><strong>Website</strong><a href="http://www.pivotcommunication.net">www.pivotcommunication.net</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&#169; 2026 Pivot Communication. All Rights Reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Category | Pivot Communication</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="pageLoader" class="page-loader"><div class="loader-inner"><img src="/img/pivot-logo-transparent.png" alt="Pivot" class="loader-logo"><div class="loader-bar"><div class="loader-bar-fill"></div></div></div></div>
+<header>
+  <div class="container header-inner">
+    <a href="/" class="logo"><img src="/img/pivot-logo-transparent.png" alt="Pivot Communication" class="logo-img"></a>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/solutions">Solutions <span class="arrow">&#9662;</span></a><ul class="dropdown"><li><a href="/datacentres">Datacentre Solutions</a></li><li><a href="/telecom">Telecom Solutions</a></li><li><a href="/hdci">HDCi&#174; Solutions</a></li></ul></li>
+        <li><a href="/products" class="active">Products <span class="arrow">&#9662;</span></a>
+          <ul class="dropdown">
+            <li class="has-sub"><a href="/products-copper">Copper Solutions</a><ul class="sub-dropdown"><li><a href="/category/copper-cable">Copper Cable</a></li><li><a href="/category/copper-assemblies">Assemblies</a></li><li><a href="/category/copper-management">Management</a></li><li><a href="/category/copper-connectivity">Connectivity</a></li><li><a href="/category/copper-datacentre">Datacentre</a></li></ul></li>
+            <li class="has-sub"><a href="/datacentres">Datacentre Solutions</a><ul class="sub-dropdown"><li><a href="/hdci">HDCi&#174; Solutions</a></li><li><a href="/uhdci">Hyperscale UHDCi&#174;</a></li></ul></li>
+            <li class="has-sub"><a href="/products-fibre">Fibre Optic Solutions</a><ul class="sub-dropdown"><li><a href="/category/fibre-internal-management">Internal &amp; External Management</a></li><li><a href="/category/fibre-mpo-mtp-solutions">MTP&#174;/MPO Solutions</a></li><li><a href="/category/fibre-multi-fibre-assemblies">Multi-Fibre Assemblies</a></li><li><a href="/category/fibre-optic-cable">Fibre Optic Cable</a></li><li><a href="/category/fibre-optic-components">Fibre Optic Components</a></li><li><a href="/category/fibre-active-equipment">Active Equipment</a></li><li><a href="/category/fibre-active-optical-cables">Active Optical Cables (AOC)</a></li><li><a href="/category/fibre-active-components">Active Components</a></li><li><a href="/category/fibre-cabinets">Cabinets</a></li><li><a href="/category/fibre-flexplane">High Density Fibre Optic Circuit Flexplane</a></li></ul></li>
+            <li><a href="/telecom">Telecom</a></li>
+          </ul>
+        </li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact" class="nav-contact-btn">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div class="page-header"><div class="container page-header-content"><div class="breadcrumb"><a href="/">Home</a><span>&#8250;</span><a href="/products">Products</a><span>&#8250;</span><span id="crumbTitle">Category</span></div><h1 id="categoryTitle">Product Category</h1><p id="categoryDesc">Browse products in this category.</p></div></div>
+<section class="section"><div class="container"><div class="products-grid" id="categoryGrid"><div style="text-align:center;padding:40px;color:var(--text-light);grid-column:1/-1">Loading products...</div></div></div></section>
+<footer><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="/" class="logo"><img src="/img/pivot-logo-white.svg" alt="Pivot Communication" class="logo-img"></a><p>Egypt's leading IT supplier providing professional IT solutions and telecommunications.</p></div><div class="footer-col"><h4>Solutions</h4><ul><li><a href="/datacentres">Datacentre Solutions</a></li><li><a href="/telecom">Telecom Solutions</a></li></ul></div><div class="footer-col"><h4>Products</h4><ul><li><a href="/products-copper">Copper Solutions</a></li><li><a href="/products-fibre">Fibre Optic Solutions</a></li><li><a href="/products">All Products</a></li></ul></div><div class="footer-col"><h4>Contact Us</h4><div class="footer-contact-item"><span class="fi"></span><p><strong>Email</strong><a href="mailto:Admin@pivotcommunication.net">Admin@pivotcommunication.net</a></p></div></div></div><div class="footer-bottom"><span>&#169; 2026 Pivot Communication. All Rights Reserved.</span><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></div></div></div></footer>
+<script src="/js/main.js"></script>
+<script>
+const CATEGORY_MAP = {
+  'copper-cable': { title:'Copper Cable', category:'copper', sub:'COPPER CABLE', desc:'Structured copper cabling products for reliable network infrastructure.' },
+  'copper-assemblies': { title:'Copper Assemblies', category:'copper', sub:'ASSEMBLIES', desc:'Copper patch cords and pre-terminated assemblies for fast deployment.' },
+  'copper-management': { title:'Copper Management', category:'copper', sub:'MANAGEMENT', desc:'Cable management products for clean, serviceable copper installations.' },
+  'copper-connectivity': { title:'Copper Connectivity', category:'copper', sub:'CONNECTIVITY', desc:'Patch panels, outlets, keystone jacks and connectivity hardware.' },
+  'copper-datacentre': { title:'Copper Datacentre', category:'copper', sub:'DATACENTRE', desc:'Copper products designed for datacentre rack and patching environments.' },
+  'fibre-internal-management': { title:'Internal & External Management', category:'fibre', subs:['INTERNAL MANAGEMENT','EXTERNAL MANAGEMENT'], desc:'Fibre management systems for internal and external network environments.' },
+  'fibre-mpo-mtp-solutions': { title:'MTP®/MPO Solutions', category:'fibre', sub:'MPO/MTP® SOLUTIONS', desc:'High-density MTP®/MPO solutions for scalable fibre infrastructure.' },
+  'fibre-multi-fibre-assemblies': { title:'Multi-Fibre Assemblies', category:'fibre', sub:'MULTI-FIBRE ASSEMBLIES', desc:'Pre-terminated multi-fibre assemblies for faster and cleaner deployments.' },
+  'fibre-optic-cable': { title:'Fibre Optic Cable', category:'fibre', sub:'FIBRE OPTIC CABLE', desc:'Fibre optic cable options for backbone, campus and datacentre networks.' },
+  'fibre-optic-components': { title:'Fibre Optic Components', category:'fibre', sub:'FIBRE OPTIC COMPONENTS', desc:'Adaptors, pigtails, couplers and components for fibre optic systems.' },
+  'fibre-active-equipment': { title:'Active Equipment', category:'fibre', sub:'ACTIVE EQUIPMENT', desc:'Active fibre equipment for network transmission and connectivity.' },
+  'fibre-active-optical-cables': { title:'Active Optical Cables (AOC)', category:'fibre', sub:'ACTIVE OPTICAL CABLES', desc:'Active optical cable products for high-speed connectivity.' },
+  'fibre-active-components': { title:'Active Components', category:'fibre', sub:'ACTIVE COMPONENTS', desc:'Active components supporting modern fibre optic infrastructure.' },
+  'fibre-cabinets': { title:'Cabinets', category:'fibre', sub:'CABINETS', desc:'Cabinets for FTTH, wall-mount and free-standing infrastructure applications.' },
+  'fibre-flexplane': { title:'High Density Fibre Optic Circuit Flexplane', category:'fibre', sub:'HIGH DENSITY FIBRE OPTIC CIRCUIT FLEXPLANE', desc:'High-density fibre optic circuit flexplane solutions for demanding infrastructure.' }
+};
+function productCard(p) {
+  const safeName = (p.name || '').replace(/'/g, "\\'");
+  return '<div class="product-card" data-id="' + p.id + '" onclick="location.href=\'/product/' + p.id + '\'"><div class="product-card-img"><img src="' + p.image + '" alt="' + p.name + '" loading="lazy" onerror="this.src=\'https://placehold.co/400x240/1478E8/white?text=Product\'"></div><div class="product-card-body"><div class="cat">Optronics Plus</div><h3>' + p.name + '</h3><p>' + (p.description || '') + '</p>' + (p.price > 0 ? '<div class="product-price">EGP ' + p.price.toLocaleString() + '</div>' : '') + '<div class="product-card-actions"><a href="/product/' + p.id + '" class="btn-card-primary" onclick="event.stopPropagation()">View Details</a><button class="btn-card-secondary" onclick="event.stopPropagation();openInquiry(' + p.id + ',\'' + safeName + '\')">Contact Us</button></div></div></div>';
+}
+(async function loadCategoryPage(){
+  const slug = location.pathname.split('/').filter(Boolean).pop();
+  const cfg = CATEGORY_MAP[slug];
+  if (!cfg) { document.getElementById('categoryTitle').textContent = 'Category Not Found'; document.getElementById('categoryGrid').innerHTML = ''; return; }
+  document.title = cfg.title + ' | Pivot Communication';
+  document.getElementById('categoryTitle').textContent = cfg.title;
+  document.getElementById('crumbTitle').textContent = cfg.title;
+  document.getElementById('categoryDesc').textContent = cfg.desc;
+  const res = await fetch('/api/products?category=' + encodeURIComponent(cfg.category));
+  const products = await res.json();
+  const subs = cfg.subs || [cfg.sub];
+  const filtered = products.filter(p => subs.includes(p.subcategory));
+  document.getElementById('categoryGrid').innerHTML = filtered.length ? filtered.map(productCard).join('') : '<p style="grid-column:1/-1;color:var(--text-light)">No products found in this category.</p>';
+})();
+</script>
+</body>
+</html>

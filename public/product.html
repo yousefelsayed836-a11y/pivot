@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details | Pivot Communication</title>
+  <meta name="description" content="Product details and specifications from Pivot Communication.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a3a6b'/><text y='70' x='50' text-anchor='middle' font-size='60' fill='white' font-family='Arial' font-weight='bold'>P</text></svg>">
+  <style>
+    .product-detail-desc h3{font-size:1.05rem;font-weight:700;color:var(--dark);margin:20px 0 8px}
+    .product-detail-desc h3:first-child{margin-top:0}
+    .product-detail-desc p{margin-bottom:12px}
+    .product-detail-desc ul{padding-left:20px;margin-bottom:12px}
+    .product-detail-desc li{margin-bottom:6px}
+    .product-detail-desc img{max-width:100%;border-radius:8px;margin:12px 0;display:block}
+    .product-detail-desc table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+    .product-detail-desc th,.product-detail-desc td{border:1px solid var(--border);padding:8px 12px;text-align:left}
+    .product-detail-desc th{background:var(--gray-light);font-weight:700;color:var(--dark)}
+  </style>
+</head>
+<body>
+
+<!-- Page Loader -->
+<div id="pageLoader" class="page-loader">
+  <div class="loader-inner">
+    <img src="/img/pivot-logo-transparent.png" alt="Pivot" class="loader-logo">
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <img src="/img/pivot-logo-transparent.png" alt="Pivot Communication" class="logo-img">
+    </a>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li>
+          <a href="/solutions">Solutions <span class="arrow">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="/datacentres">Datacentre Solutions</a></li>
+            <li><a href="/telecom">Telecom Solutions</a></li>
+            <li><a href="/hdci">HDCi® Solutions</a></li>          </ul>
+        </li>
+        <li>
+          <a href="/products">Products <span class="arrow">&#9662;</span></a>
+          <ul class="dropdown">
+            <li class="has-sub"><a href="/products-copper">Copper Solutions</a>
+              <ul class="sub-dropdown">
+                <li><a href="/category/copper-cable">Copper Cable</a></li>
+                <li><a href="/category/copper-assemblies">Assemblies</a></li>
+                <li><a href="/category/copper-management">Management</a></li>
+                <li><a href="/category/copper-connectivity">Connectivity</a></li>
+                <li><a href="/category/copper-datacentre">Datacentre</a></li>
+              </ul>
+            </li>
+            <li class="has-sub">
+              <a href="/datacentres">Datacentre Solutions</a>
+              <ul class="sub-dropdown">
+                <li><a href="/hdci">HDCi&#174; Solutions</a></li>
+                <li><a href="/uhdci">Hyperscale UHDCi&#174;</a></li>              </ul>
+            </li>
+            <li class="has-sub">
+              <a href="/products-fibre">Fibre Optic Solutions</a>
+              <ul class="sub-dropdown">
+                <li><a href="/category/fibre-internal-management">Internal &amp; External Management</a></li>
+                <li><a href="/category/fibre-mpo-mtp-solutions">MTP&#174;/MPO Solutions</a></li>
+                <li><a href="/category/fibre-multi-fibre-assemblies">Multi-Fibre Assemblies</a></li>
+                <li><a href="/category/fibre-optic-cable">Fibre Optic Cable</a></li>
+                <li><a href="/category/fibre-optic-components">Fibre Optic Components</a></li>
+                <li><a href="/category/fibre-active-equipment">Active Equipment</a></li>
+                <li><a href="/category/fibre-active-optical-cables">Active Optical Cables (AOC)</a></li>
+                <li><a href="/category/fibre-active-components">Active Components</a></li>
+                <li><a href="/category/fibre-cabinets">Cabinets</a></li>
+                <li><a href="/category/fibre-flexplane">High Density Fibre Optic Circuit Flexplane</a></li>
+              </ul>
+            </li>
+            <li><a href="/telecom">Telecom</a></li>
+          </ul>
+        </li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact" class="nav-contact-btn">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- PRODUCT DETAIL -->
+<section class="product-detail-section">
+  <div class="container">
+    <div id="productDetailContent" class="product-detail-grid">
+      <!-- populated by JS -->
+      <div style="text-align:center;padding:80px 0;grid-column:1/-1;color:var(--text-light)">Loading product...</div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PRODUCTS -->
+<section class="section bg-light" id="relatedSection" style="display:none">
+  <div class="container">
+    <div class="section-header">
+      <h2>Related Products</h2>
+    </div>
+    <div class="products-grid" id="relatedGrid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <div class="container cta-banner-content">
+    <h2>Need Help Choosing?</h2>
+    <p>Our team can help you select the right product for your project requirements.</p>
+    <a href="/contact" class="btn btn-primary">Contact Us &#8594;</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo">
+          <img src="/img/pivot-logo-white.svg" alt="Pivot Communication" class="logo-img">
+        </a>
+        <p>Egypt's leading IT supplier providing professional IT solutions and telecommunications for industrial, commercial and residential needs.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="/datacentres">Datacentre Solutions</a></li>
+          <li><a href="/telecom">Telecom Solutions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/products-copper">Copper Solutions</a></li>
+          <li><a href="/products-fibre">Fibre Optic Solutions</a></li>
+          <li><a href="/products">All Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item">
+          <span class="fi"></span>
+          <p><strong>General Information</strong><a href="mailto:Admin@pivotcommunication.net">Admin@pivotcommunication.net</a></p>
+        </div>
+        <div class="footer-contact-item">
+          <span class="fi"></span>
+          <p><strong>Website</strong><a href="http://www.pivotcommunication.net">www.pivotcommunication.net</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&#169; 2026 Pivot Communication. All Rights Reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+(async function loadProductDetail() {
+  const pathParts = window.location.pathname.split('/');
+  const id = parseInt(pathParts[pathParts.length - 1]);
+  if (!id) return;
+
+  try {
+    const res = await fetch(`/api/products/${id}`);
+    if (!res.ok) throw new Error('Not found');
+    const p = await res.json();
+
+    document.title = `${p.name} | Pivot Communication`;
+
+    const grid = document.getElementById('productDetailContent');
+    let specsHTML = '';
+    if (p.specs) {
+      if (Array.isArray(p.specs)) {
+        // Sectioned format: [{title, data: {k:v}}]
+        specsHTML = `<div class="specs-table-wrap">` +
+          p.specs.map(sec => `
+            <div class="specs-title">${sec.title}</div>
+            <table class="specs-table">
+              ${Object.entries(sec.data).map(([k,v]) => `<tr><td class="spec-key">${k}</td><td class="spec-val">${v}</td></tr>`).join('')}
+            </table>`).join('') +
+          `</div>`;
+      } else if (Object.keys(p.specs).length) {
+        // Flat format fallback
+        specsHTML = `<div class="specs-table-wrap">
+          <div class="specs-title">Technical Specifications</div>
+          <table class="specs-table">
+            ${Object.entries(p.specs).map(([k,v]) => `<tr><td class="spec-key">${k}</td><td class="spec-val">${v}</td></tr>`).join('')}
+          </table>
+        </div>`;
+      }
+    }
+
+    grid.innerHTML = `
+      <div class="product-detail-img">
+        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/600x450/1e3a99/white?text=Product'">
+      </div>
+      <div class="product-detail-info">
+        <div class="product-detail-breadcrumb">
+          <a href="/">Home</a> &rsaquo;
+          <a href="/products">Products</a> &rsaquo;
+          <a href="/products-${p.category}">${p.category === 'copper' ? 'Copper Solutions' : 'Fibre Optic Solutions'}</a> &rsaquo;
+          ${p.name}
+        </div>
+        <div class="product-detail-sub">${p.subcategory}</div>
+        <h1 class="product-detail-title">${p.name}</h1>
+        ${p.descHtml
+          ? `<div class="product-detail-desc" style="font-size:15px;line-height:1.75;color:var(--text-light)">${p.descHtml}</div>`
+          : `<p class="product-detail-desc">${p.description}</p>`}
+        ${p.price > 0 ? `<div class="product-detail-price">EGP ${p.price.toLocaleString()}${p.units ? `<span style="font-size:13px;font-weight:500;color:var(--text-gray);margin-left:8px">/ ${p.units}</span>` : ''}</div>` : (p.units ? `<div style="font-size:14px;font-weight:600;color:var(--text-gray);margin:12px 0">${p.units}</div>` : '')}
+        <div class="product-detail-actions">
+          <button class="btn btn-primary" onclick="openInquiry(${p.id},'${p.name.replace(/'/g,"\\'")}')" style="cursor:pointer">Contact Us</button>
+          <a href="/products-${p.category}" class="btn btn-outline">Back to Products</a>
+        </div>
+        ${specsHTML}
+      </div>`;
+
+    // Load related products (same category)
+    const relRes = await fetch(`/api/products?category=${p.category}`);
+    const all = await relRes.json();
+    const related = all.filter(x => x.id !== p.id).slice(0, 4);
+    if (related.length) {
+      document.getElementById('relatedSection').style.display = '';
+      document.getElementById('relatedGrid').innerHTML = related.map(r => `
+        <div class="product-card" onclick="location.href='/product/${r.id}'" style="cursor:pointer">
+          <div class="product-card-img">
+            <img src="${r.image}" alt="${r.name}" loading="lazy" onerror="this.src='https://placehold.co/400x240/1e3a99/white?text=Product'">
+          </div>
+          <div class="product-card-body">
+            <div class="cat">Optronics Plus</div>
+            <h3>${r.name}</h3>
+            <div class="product-card-actions">
+              <a href="/product/${r.id}" class="btn-card-primary">View Details</a>
+              <button class="btn-card-secondary" onclick="event.stopPropagation();openInquiry(${r.id},'${r.name.replace(/'/g,"\\'")}')">Contact Us</button>
+            </div>
+          </div>
+        </div>`).join('');
+    }
+  } catch (e) {
+    document.getElementById('productDetailContent').innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;padding:80px 0"><h2>Product not found</h2><p><a href="/products">Browse all products</a></p></div>';
+  }
+})();
+</script>
+</body>
+</html>

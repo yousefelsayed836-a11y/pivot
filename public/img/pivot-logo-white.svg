@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 290" fill="none">
+  <!-- Orange dot -->
+  <circle cx="50" cy="28" r="22" fill="#f7941d"/>
+
+  <!-- Cable stem -->
+  <line x1="50" y1="54" x2="50" y2="205"
+        stroke="white" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- Cable bowl of P -->
+  <path d="M50,78 C50,46 200,40 200,88 C200,132 50,128 50,128"
+        stroke="white" stroke-width="20" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- RJ45 connector -->
+  <rect x="188" y="42" width="44" height="28" rx="4" fill="white" fill-opacity="0.9"/>
+  <rect x="193" y="42" width="5" height="10" rx="1.5" fill="#f7941d"/>
+  <rect x="201" y="42" width="5" height="10" rx="1.5" fill="#f7941d"/>
+  <rect x="209" y="42" width="5" height="10" rx="1.5" fill="#f7941d"/>
+  <rect x="217" y="42" width="5" height="10" rx="1.5" fill="#f7941d"/>
+  <rect x="196" y="68" width="28" height="5" rx="2" fill="white" fill-opacity="0.6"/>
+
+  <!-- PIVOT text -->
+  <text x="130" y="240"
+        font-family="'Arial Black', Arial, sans-serif"
+        font-weight="900"
+        font-size="62"
+        fill="white"
+        text-anchor="middle"
+        letter-spacing="2">PIVOT</text>
+
+  <!-- Subtitle -->
+  <text x="130" y="264"
+        font-family="Arial, sans-serif"
+        font-weight="400"
+        font-size="14"
+        fill="rgba(255,255,255,0.7)"
+        text-anchor="middle"
+        letter-spacing="0.5">Communication &amp; Structure</text>
+  <text x="130" y="281"
+        font-family="Arial, sans-serif"
+        font-weight="400"
+        font-size="14"
+        fill="rgba(255,255,255,0.7)"
+        text-anchor="middle"
+        letter-spacing="0.5">Cabling Solutions</text>
+</svg>

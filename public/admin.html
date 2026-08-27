@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Pivot Communication</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body { font-family: 'Open Sans', sans-serif; background: #f3f4f6; }
+    .admin-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+
+    /* Login */
+    .login-screen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; background: #f3f4f6;
+    }
+    .login-box {
+      background: #fff; border-radius: 16px; padding: 48px 40px;
+      width: 380px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .login-box img { width: 90px; margin: 0 auto 20px; }
+    .login-box h2 { font-size: 22px; color: #1e3a99; margin-bottom: 8px; }
+    .login-box p { color: #6b7280; font-size: 13px; margin-bottom: 28px; }
+    .login-input {
+      width: 100%; padding: 12px 16px; border: 1.5px solid #e5e7eb;
+      border-radius: 8px; font-size: 15px; margin-bottom: 16px;
+      outline: none; transition: border-color 0.2s;
+    }
+    .login-input:focus { border-color: #1e3a99; }
+    .login-btn {
+      width: 100%; padding: 12px; background: #1e3a99; color: #fff;
+      border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .login-btn:hover { background: #3050c0; }
+    .login-err { color: #dc2626; font-size: 13px; margin-top: 10px; }
+
+    /* Dashboard */
+    .dashboard { display: none; }
+    .admin-header {
+      background: #1e3a99; color: #fff; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .admin-header img { height: 44px; filter: brightness(0) invert(1); }
+    .admin-header h1 { font-size: 18px; font-weight: 700; }
+    .logout-btn {
+      background: rgba(255,255,255,0.15); color: #fff; border: none;
+      padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 13px;
+      transition: background 0.2s;
+    }
+    .logout-btn:hover { background: rgba(255,255,255,0.25); }
+
+    /* Add Product Form */
+    .add-product-card {
+      background: #fff; border-radius: 12px; padding: 28px 28px 20px;
+      margin-bottom: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .add-product-card h2 { font-size: 16px; color: #1e3a99; margin-bottom: 20px; }
+    .add-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .add-grid .full { grid-column: 1 / -1; }
+    .add-grid label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 4px; }
+    .add-grid input, .add-grid select, .add-grid textarea {
+      width: 100%; padding: 9px 12px; border: 1.5px solid #e5e7eb;
+      border-radius: 7px; font-size: 13px; font-family: inherit;
+      outline: none; transition: border-color 0.2s;
+    }
+    .add-grid input:focus, .add-grid select:focus, .add-grid textarea:focus { border-color: #1e3a99; }
+    .add-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .btn-add { padding: 10px 24px; background: #1e3a99; color: #fff; border: none; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-add:hover { background: #3050c0; }
+
+    /* Products Table */
+    .table-card {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden;
+    }
+    .table-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px 16px;
+    }
+    .table-top h2 { font-size: 16px; color: #111827; }
+    .table-search {
+      padding: 8px 14px; border: 1.5px solid #e5e7eb; border-radius: 7px;
+      font-size: 13px; width: 220px; outline: none;
+    }
+    .table-search:focus { border-color: #1e3a99; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead { background: #f9fafb; }
+    th { padding: 11px 16px; text-align: left; font-weight: 700; color: #374151; border-bottom: 1px solid #e5e7eb; white-space: nowrap; }
+    td { padding: 12px 16px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f9fafb; }
+    .prod-img-thumb { width: 52px; height: 40px; object-fit: cover; border-radius: 6px; background: #f3f4f6; }
+    .badge-cat { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .badge-copper { background: #fef3c7; color: #92400e; }
+    .badge-fibre  { background: #dbeafe; color: #1e40af; }
+    .badge-hdci   { background: #d1fae5; color: #065f46; }
+    .badge-uhdci  { background: #ede9fe; color: #5b21b6; }
+
+    /* Quick nav links */
+    .quick-nav { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
+    .quick-nav a { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; background:#fff; border:1.5px solid #e5e7eb; border-radius:8px; font-size:13px; font-weight:600; color:#1e3a99; text-decoration:none; transition:all .15s; }
+    .quick-nav a:hover { border-color:#1e3a99; background:#f0f4ff; }
+
+    /* Inline edit */
+    .inline-input { width: 100%; padding: 6px 10px; border: 1.5px solid #1e3a99; border-radius: 6px; font-size: 13px; font-family: inherit; }
+    .btn-edit   { background: none; border: none; color: #1e3a99; cursor: pointer; font-weight: 700; font-size: 12px; margin-right: 6px; }
+    .btn-save   { background: #16a34a; color: #fff; border: none; border-radius: 5px; padding: 5px 12px; font-size: 12px; cursor: pointer; margin-right: 4px; }
+    .btn-cancel { background: #6b7280; color: #fff; border: none; border-radius: 5px; padding: 5px 10px; font-size: 12px; cursor: pointer; margin-right: 4px; }
+    .btn-del    { background: none; border: none; color: #dc2626; cursor: pointer; font-weight: 700; font-size: 12px; }
+    .btn-upload { background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 5px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+
+    /* Status bar */
+    .status-bar { padding: 10px 24px; font-size: 12px; color: #16a34a; border-top: 1px solid #f3f4f6; min-height: 38px; }
+    .status-bar.err { color: #dc2626; }
+
+    /* Bulk Edit */
+    .bulk-card {
+      background:#fff; border-radius:12px; padding:28px;
+      margin-bottom:32px; box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    }
+    .bulk-card h2 { font-size:16px; color:#1e3a99; margin-bottom:6px; }
+    .bulk-card p { font-size:12px; color:#6b7280; margin-bottom:20px; }
+    .bulk-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:14px; }
+    .bulk-row label { display:block; font-size:12px; font-weight:600; color:#374151; margin-bottom:4px; }
+    .bulk-row select, .bulk-row input { width:100%; padding:9px 12px; border:1.5px solid #e5e7eb; border-radius:7px; font-size:13px; font-family:inherit; outline:none; transition:border-color .2s; }
+    .bulk-row select:focus, .bulk-row input:focus { border-color:#1e3a99; }
+    .bulk-preview { display:flex; gap:10px; align-items:center; margin:14px 0; flex-wrap:wrap; }
+    .bulk-preview img { width:64px; height:48px; object-fit:cover; border-radius:6px; border:2px solid #e5e7eb; }
+    .bulk-preview .bulk-count { font-size:13px; color:#374151; font-weight:600; }
+    .bulk-new-img { margin:14px 0; }
+    .bulk-new-img label { display:block; font-size:12px; font-weight:600; color:#374151; margin-bottom:4px; }
+    .bulk-new-img input { width:100%; padding:9px 12px; border:1.5px solid #e5e7eb; border-radius:7px; font-size:13px; font-family:inherit; outline:none; transition:border-color .2s; }
+    .bulk-new-img input:focus { border-color:#1e3a99; }
+    .bulk-img-preview { margin-top:10px; display:flex; gap:8px; align-items:center; }
+    .bulk-img-preview img { width:80px; height:60px; object-fit:cover; border-radius:6px; border:2px solid #1e3a99; }
+    .btn-bulk { padding:11px 28px; background:#1e3a99; color:#fff; border:none; border-radius:7px; font-size:14px; font-weight:700; cursor:pointer; transition:background .2s; }
+    .btn-bulk:hover { background:#3050c0; }
+    .btn-bulk:disabled { background:#9ca3af; cursor:not-allowed; }
+    .bulk-status { margin-left:14px; font-size:13px; align-self:center; }
+    .bulk-status.ok { color:#16a34a; }
+    .bulk-status.err { color:#dc2626; }
+
+    @media (max-width: 900px) {
+      .add-grid { grid-template-columns: 1fr 1fr; }
+      th:nth-child(4), td:nth-child(4) { display: none; }
+      .bulk-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .add-grid { grid-template-columns: 1fr; }
+      .table-search { width: 140px; }
+      th:nth-child(3), td:nth-child(3) { display: none; }
+      .bulk-row { grid-template-columns: 1fr; }
+    }
+    /* Export Card */
+    .export-card { background:#fff; border-radius:12px; padding:22px 28px; margin-bottom:32px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .export-card h2 { font-size:16px; color:#1e3a99; margin-bottom:4px; }
+    .export-card p { font-size:12px; color:#6b7280; margin-bottom:16px; }
+    .export-btns { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .btn-export-pdf { padding:10px 22px; background:#dc2626; color:#fff; border:none; border-radius:7px; font-size:13px; font-weight:700; cursor:pointer; transition:background .2s; }
+    .btn-export-pdf:hover { background:#b91c1c; }
+    .btn-export-xl  { padding:10px 22px; background:#16a34a; color:#fff; border:none; border-radius:7px; font-size:13px; font-weight:700; cursor:pointer; transition:background .2s; }
+    .btn-export-xl:hover { background:#15803d; }
+    .btn-export-pdf:disabled,.btn-export-xl:disabled { background:#9ca3af; cursor:not-allowed; }
+    .export-progress { margin-top:12px; display:none; }
+    .export-bar-wrap { background:#e5e7eb; border-radius:20px; height:6px; overflow:hidden; margin-bottom:6px; }
+    .export-bar-fill { height:100%; background:#1e3a99; border-radius:20px; transition:width .15s; }
+    .export-msg { font-size:12px; color:#374151; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <img src="/img/pivot-logo-transparent.png" alt="Pivot">
+    <h2>Admin Dashboard</h2>
+    <p>Enter your admin password to continue</p>
+    <input class="login-input" type="password" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Login</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="admin-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <img src="/img/pivot-logo-transparent.png" alt="Pivot" style="height:44px">
+      <h1>Admin Dashboard</h1>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">Logout</button>
+  </div>
+
+  <div class="admin-wrap">
+
+    <!-- EXPORT -->
+    <div class="export-card">
+      <h2>&#128229; Export Products</h2>
+      <p>Download all products as a formatted PDF catalogue or an Excel spreadsheet with images, names, categories and descriptions.</p>
+      <div class="export-btns">
+        <button class="btn-export-pdf" id="btnPdf" onclick="exportPDF()">&#128196; Export PDF</button>
+        <button class="btn-export-xl"  id="btnXl"  onclick="exportExcel()">&#128200; Export Excel</button>
+      </div>
+      <div class="export-progress" id="exportProgress">
+        <div class="export-bar-wrap"><div class="export-bar-fill" id="exportBarFill" style="width:0%"></div></div>
+        <div class="export-msg" id="exportMsg">Preparing…</div>
+      </div>
+    </div>
+
+    <!-- QUICK NAV -->
+    <div class="quick-nav">
+      <a href="/" target="_blank">&#127968; Home</a>
+      <a href="/products-copper" target="_blank">&#9881; Copper Products</a>
+      <a href="/products-fibre" target="_blank">&#128161; Fibre Products</a>
+      <a href="/hdci" target="_blank">&#9000; HDCi&#174; Products</a>
+      <a href="/uhdci" target="_blank">&#10000; UHDCi&#174; Products</a>
+      <a href="/datacentres" target="_blank">&#128421; Datacentre</a>
+      <a href="/telecom" target="_blank">&#128225; Telecom</a>
+    </div>
+
+    <!-- ADD PRODUCT -->
+    <div class="add-product-card">
+      <h2>Add New Product</h2>
+      <div class="add-grid" id="addForm">
+        <div>
+          <label>Product Name *</label>
+          <input type="text" id="addName" placeholder="e.g. Cat 6 UTP Cable">
+        </div>
+        <div>
+          <label>Category *</label>
+          <select id="addCategory">
+            <option value="copper">Copper</option>
+            <option value="fibre">Fibre Optic</option>
+            <option value="hdci">HDCi&#174;</option>
+            <option value="uhdci">Hyperscale UHDCi&#174;</option>
+          </select>
+        </div>
+        <div>
+          <label>Subcategory</label>
+          <input type="text" id="addSubcategory" placeholder="e.g. COPPER CABLE">
+        </div>
+        <div>
+          <label>Price (EGP)</label>
+          <input type="number" id="addPrice" placeholder="0" min="0">
+        </div>
+        <div style="grid-column:span 1">
+          <label>Image URL</label>
+          <input type="text" id="addImage" placeholder="https://... or paste image" oninput="updateAddPreview()">
+          <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
+            <button type="button" onclick="pasteImageToAdd()" style="padding:6px 12px;background:#f3f4f6;border:1.5px solid #e5e7eb;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600">&#128203; Paste Image</button>
+            <label style="padding:6px 12px;background:#f3f4f6;border:1.5px solid #e5e7eb;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600">
+              &#128194; Upload
+              <input type="file" accept="image/*" style="display:none" onchange="uploadFileToAdd(this)">
+            </label>
+          </div>
+          <img id="addImgPreview" src="" style="display:none;margin-top:8px;width:80px;height:60px;object-fit:cover;border-radius:6px;border:2px solid #1e3a99" onerror="this.style.display='none'">
+        </div>
+        <div>
+          <label>Slug</label>
+          <input type="text" id="addSlug" placeholder="cat6-utp-cable">
+        </div>
+        <div>
+          <label>Units <span style="font-weight:400;color:#9ca3af">(e.g. per metre, each, pack of 12)</span></label>
+          <input type="text" id="addUnits" placeholder="e.g. per port">
+        </div>
+        <div class="full">
+          <label>Short Description <span style="font-weight:400;color:#9ca3af">(shown on product cards)</span></label>
+          <textarea id="addDesc" rows="2" placeholder="Short product description..."></textarea>
+        </div>
+        <div class="full">
+          <label>Rich Description <span style="font-weight:400;color:#9ca3af">(HTML/CSS — shown on product detail page)</span></label>
+          <div style="border:1.5px solid #e5e7eb;border-radius:7px;overflow:hidden">
+            <div style="background:#f9fafb;border-bottom:1px solid #e5e7eb;padding:6px 10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <span style="font-size:11px;font-weight:700;color:#374151;margin-right:4px">INSERT:</span>
+              <label style="padding:4px 10px;background:#fff;border:1px solid #d1d5db;border-radius:5px;font-size:12px;cursor:pointer;font-weight:600">
+                &#128247; Image
+                <input type="file" accept="image/*" style="display:none" onchange="insertDescImage('addDescHtml',this,'addStatus')">
+              </label>
+              <button type="button" onclick="insertDescTag('addDescHtml','<h3>','</h3>')" style="padding:4px 10px;background:#fff;border:1px solid #d1d5db;border-radius:5px;font-size:12px;cursor:pointer;font-weight:700">H3</button>
+              <button type="button" onclick="insertDescTag('addDescHtml','<p>','</p>')" style="padding:4px 10px;background:#fff;border:1px solid #d1d5db;border-radius:5px;font-size:12px;cursor:pointer">P</button>
+              <button type="button" onclick="insertDescTag('addDescHtml','<ul>\n  <li>','</li>\n</ul>')" style="padding:4px 10px;background:#fff;border:1px solid #d1d5db;border-radius:5px;font-size:12px;cursor:pointer">List</button>
+              <button type="button" onclick="insertDescTag('addDescHtml','<strong>','</strong>')" style="padding:4px 10px;background:#fff;border:1px solid #d1d5db;border-radius:5px;font-size:12px;cursor:pointer;font-weight:700">B</button>
+              <button type="button" onclick="insertDescTag('addDescHtml','<table style=\"width:100%;border-collapse:collapse\">\n  <tr><th style=\"border:1px solid #e5e7eb;padding:8px\">Column 1</th><th style=\"border:1px solid #e5e7eb;padding:8px\">Column 2</th></tr>\n  <tr><td style=\"border:1px solid #e5e7eb;padding:8px\">Value</td><td style=\"border:1px solid #e5e7eb;padding:8px\">Value</td></tr>\n</table>','')" style="padding:4px 10px;background:#fff;border:1px solid #d1d5db;border-radius:5px;font-size:12px;cursor:pointer">Table</button>
+              <button type="button" onclick="toggleDescPreview('addDescHtml','addDescPreview')" style="padding:4px 10px;background:#1e3a99;color:#fff;border:none;border-radius:5px;font-size:12px;cursor:pointer;margin-left:auto">Preview</button>
+            </div>
+            <textarea id="addDescHtml" rows="6" style="width:100%;padding:10px 12px;border:none;font-size:12px;font-family:monospace;outline:none;resize:vertical;background:#fff" placeholder="<h3>Section Title</h3>&#10;<p>Your rich content here...</p>&#10;<img src=&quot;/img/uploads/product.jpg&quot; style=&quot;max-width:100%&quot;>"></textarea>
+          </div>
+          <div id="addDescPreview" style="display:none;border:1.5px solid #1e3a99;border-radius:7px;padding:16px;margin-top:8px;background:#fff;font-size:14px;line-height:1.7"></div>
+        </div>
+      </div>
+      <div class="add-actions">
+        <button class="btn-add" onclick="addProduct()">+ Add Product</button>
+        <span id="addStatus" style="font-size:13px;color:#16a34a;align-self:center"></span>
+      </div>
+    </div>
+
+    <!-- BULK EDIT BY GROUP -->
+    <div class="bulk-card">
+      <h2>&#9998; Bulk Edit by Group</h2>
+      <p>Select a category and subcategory to apply changes to all products in that group at once.</p>
+
+      <div class="bulk-row">
+        <div>
+          <label>Category</label>
+          <select id="bulkCat" onchange="updateBulkSubcats()">
+            <option value="">-- Select Category --</option>
+            <option value="copper">Copper</option>
+            <option value="fibre">Fibre Optic</option>
+            <option value="hdci">HDCi&#174;</option>
+            <option value="uhdci">Hyperscale UHDCi&#174;</option>
+          </select>
+        </div>
+        <div>
+          <label>Subcategory (Group)</label>
+          <select id="bulkSub" onchange="updateBulkPreview()">
+            <option value="">-- Select Group --</option>
+          </select>
+        </div>
+        <div>
+          <label>Move to New Subcategory <span style="font-weight:400;color:#9ca3af">(optional)</span></label>
+          <input type="text" id="bulkNewSub" placeholder="Leave blank to keep current">
+        </div>
+      </div>
+
+      <div class="bulk-preview" id="bulkPreview" style="display:none">
+        <span class="bulk-count" id="bulkCount"></span>
+        <div id="bulkThumbs"></div>
+      </div>
+
+      <div class="bulk-new-img">
+        <label>New Image URL <span style="font-weight:400;color:#9ca3af">(leave blank to keep current images)</span></label>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <input type="text" id="bulkImgUrl" placeholder="https://... or paste image below" oninput="previewBulkImg()" style="flex:1;min-width:200px">
+          <button type="button" onclick="pasteImageTo('bulkImgUrl','bulkImgPreviewImg','bulkImgPreviewWrap')" style="padding:9px 16px;background:#f3f4f6;border:1.5px solid #e5e7eb;border-radius:7px;font-size:13px;cursor:pointer;white-space:nowrap;font-weight:600;display:flex;align-items:center;gap:6px" title="Ctrl+V to paste a copied image">
+            &#128203; Paste Image
+          </button>
+          <label style="padding:9px 16px;background:#f3f4f6;border:1.5px solid #e5e7eb;border-radius:7px;font-size:13px;cursor:pointer;white-space:nowrap;font-weight:600" title="Upload from file">
+            &#128194; Upload
+            <input type="file" accept="image/*" style="display:none" onchange="uploadFileTo(this,'bulkImgUrl','bulkImgPreviewImg','bulkImgPreviewWrap')">
+          </label>
+        </div>
+        <div class="bulk-img-preview" id="bulkImgPreviewWrap" style="display:none;margin-top:10px">
+          <img id="bulkImgPreviewImg" src="" alt="Preview" onerror="this.src='https://placehold.co/80x60/1e3a99/white?text=?'">
+          <span style="font-size:12px;color:#6b7280">Image preview</span>
+        </div>
+      </div>
+
+      <div class="bulk-new-img" style="margin-top:0">
+        <label>New Description <span style="font-weight:400;color:#9ca3af">(leave blank to keep current descriptions)</span></label>
+        <textarea id="bulkDesc" rows="2" style="width:100%;padding:9px 12px;border:1.5px solid #e5e7eb;border-radius:7px;font-size:13px;font-family:inherit;outline:none;resize:vertical" placeholder="Replace description for all products in this group..."></textarea>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+        <button class="btn-bulk" id="bulkApplyBtn" onclick="applyBulkEdit()" disabled>Apply to Group</button>
+        <span class="bulk-status" id="bulkStatus"></span>
+      </div>
+    </div>
+
+    <!-- PRODUCTS TABLE -->
+    <div class="table-card">
+      <div class="table-top">
+        <h2>All Products <span id="prodCount" style="font-size:13px;color:#6b7280;font-weight:400"></span></h2>
+        <input class="table-search" type="text" id="searchInput" placeholder="Search products..." oninput="filterTable()">
+      </div>
+      <div style="overflow-x:auto">
+        <table id="prodTable">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Subcategory</th>
+              <th>Price (EGP)</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="prodBody"></tbody>
+        </table>
+      </div>
+      <div class="status-bar" id="tableStatus"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let TOKEN = '';
+let products = [];
+
+// ── AUTH ─────────────────────────────────────────────────────
+async function doLogin() {
+  const pass = document.getElementById('loginPass').value.trim();
+  if (!pass) return;
+  try {
+    const res = await fetch('/api/products/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pass })
+    });
+    const json = await res.json();
+    if (res.ok && json.token) {
+      TOKEN = json.token;
+      sessionStorage.setItem('pivot_token', TOKEN);
+      showDashboard();
+    } else {
+      document.getElementById('loginErr').textContent = json.error || 'Invalid password';
+    }
+  } catch {
+    document.getElementById('loginErr').textContent = 'Connection error. Is the server running?';
+  }
+}
+
+function doLogout() {
+  TOKEN = '';
+  sessionStorage.removeItem('pivot_token');
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginErr').textContent = '';
+}
+
+function showDashboard() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  loadProducts();
+}
+
+// Auto-login if token in sessionStorage
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = sessionStorage.getItem('pivot_token');
+  if (saved) { TOKEN = saved; showDashboard(); }
+  document.getElementById('loginPass').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+});
+
+// ── LOAD PRODUCTS ─────────────────────────────────────────────
+async function loadProducts() {
+  try {
+    const res = await fetch('/api/products');
+    products = await res.json();
+    const search = document.getElementById('searchInput');
+    if (search && search.value.trim()) filterTable(); else renderTable(products);
+    document.getElementById('prodCount').textContent = `(${products.length})`;
+  } catch {
+    setStatus('Failed to load products', true);
+  }
+}
+
+function renderTable(list) {
+  const tbody = document.getElementById('prodBody');
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:40px">No products found</td></tr>'; return; }
+  tbody.innerHTML = list.map(p => {
+    const desc = (p.description || '').replace(/'/g, "&#39;");
+    const descPreview = (p.description || '').slice(0, 80) + ((p.description||'').length > 80 ? '…' : '');
+    return `
+    <tr id="row-${p.id}">
+      <td><img class="prod-img-thumb" src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/52x40/1e3a99/white?text=P'"></td>
+      <td style="max-width:220px">
+        <strong>${p.name}</strong>
+        ${descPreview ? `<div style="font-size:11px;color:#9ca3af;margin-top:2px;line-height:1.4">${descPreview}</div>` : ''}
+      </td>
+      <td><span class="badge-cat badge-${p.category}">${p.category}</span></td>
+      <td style="color:#6b7280">${p.subcategory || ''}</td>
+      <td>${p.price > 0 ? 'EGP ' + p.price.toLocaleString() : '<span style="color:#9ca3af">—</span>'}</td>
+      <td>
+        <button class="btn-edit" onclick="editRow(${p.id})">Edit</button>
+        <button class="btn-del" onclick="deleteProduct(${p.id},'${p.name.replace(/'/g,"\\'")}')">Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterTable() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    (p.subcategory || '').toLowerCase().includes(q) ||
+    p.category.toLowerCase().includes(q)
+  );
+  renderTable(filtered);
+}
+
+function keepRowInView(id, fallbackY) {
+  requestAnimationFrame(() => {
+    const row = document.getElementById(`row-${id}`);
+    if (row) {
+      const top = row.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top: Math.max(top, 0), behavior: 'auto' });
+    } else {
+      window.scrollTo({ top: fallbackY || 0, behavior: 'auto' });
+    }
+  });
+}
+
+async function reloadAndKeepRow(id, fallbackY) {
+  await loadProducts();
+  keepRowInView(id, fallbackY);
+}
+
+// ── INLINE EDIT ───────────────────────────────────────────────
+function editRow(id) {
+  const currentY = window.scrollY;
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const row = document.getElementById(`row-${id}`);
+  const safeDesc = (p.description || '').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+  row.innerHTML = `
+    <td colspan="6" style="padding:0">
+      <div style="background:#f0f4ff;border:2px solid #1e3a99;border-radius:8px;padding:18px;margin:4px">
+        <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px;align-items:start">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Image Preview</div>
+            <img id="previewImg-${id}" src="${p.image}" style="width:72px;height:56px;object-fit:cover;border-radius:6px;border:2px solid #e5e7eb" onerror="this.src='https://placehold.co/72x56/1e3a99/white?text=P'">
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Name</div>
+            <input class="inline-input" id="e-name-${id}" value="${p.name.replace(/"/g,'&quot;')}">
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Category</div>
+            <select class="inline-input" id="e-cat-${id}">
+              <option value="copper" ${p.category==='copper'?'selected':''}>Copper</option>
+              <option value="fibre" ${p.category==='fibre'?'selected':''}>Fibre</option>
+              <option value="hdci" ${p.category==='hdci'?'selected':''}>HDCi</option>
+              <option value="uhdci" ${p.category==='uhdci'?'selected':''}>UHDCi</option>
+            </select>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Subcategory</div>
+            <input class="inline-input" id="e-sub-${id}" value="${(p.subcategory||'').replace(/"/g,'&quot;')}">
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Price (EGP)</div>
+            <input class="inline-input" id="e-price-${id}" type="number" value="${p.price}">
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Units</div>
+            <input class="inline-input" id="e-units-${id}" value="${(p.units||'').replace(/"/g,'&quot;')}" placeholder="per metre, each…">
+          </div>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Short Description <span style="font-weight:400;color:#9ca3af">(cards)</span></div>
+          <textarea class="inline-input" id="e-desc-${id}" rows="2" style="resize:vertical;font-size:13px;line-height:1.5">${safeDesc}</textarea>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Rich Description <span style="font-weight:400;color:#9ca3af">(HTML — product detail page)</span></div>
+          <div style="border:1.5px solid #e5e7eb;border-radius:7px;overflow:hidden">
+            <div style="background:#f9fafb;border-bottom:1px solid #e5e7eb;padding:5px 8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+              <label style="padding:3px 8px;background:#fff;border:1px solid #d1d5db;border-radius:4px;font-size:11px;cursor:pointer;font-weight:600">
+                &#128247; Image
+                <input type="file" accept="image/*" style="display:none" onchange="insertDescImage('e-dh-${id}',this,'tableStatus')">
+              </label>
+              <button type="button" onclick="insertDescTag('e-dh-${id}','<h3>','</h3>')" style="padding:3px 8px;background:#fff;border:1px solid #d1d5db;border-radius:4px;font-size:11px;cursor:pointer;font-weight:700">H3</button>
+              <button type="button" onclick="insertDescTag('e-dh-${id}','<p>','</p>')" style="padding:3px 8px;background:#fff;border:1px solid #d1d5db;border-radius:4px;font-size:11px;cursor:pointer">P</button>
+              <button type="button" onclick="insertDescTag('e-dh-${id}','<ul>\\n  <li>','</li>\\n</ul>')" style="padding:3px 8px;background:#fff;border:1px solid #d1d5db;border-radius:4px;font-size:11px;cursor:pointer">List</button>
+              <button type="button" onclick="insertDescTag('e-dh-${id}','<strong>','</strong>')" style="padding:3px 8px;background:#fff;border:1px solid #d1d5db;border-radius:4px;font-size:11px;cursor:pointer;font-weight:700">B</button>
+              <button type="button" onclick="insertDescTag('e-dh-${id}','<table style=\\"width:100%;border-collapse:collapse\\">\\n  <tr><th style=\\"border:1px solid #e5e7eb;padding:8px\\">Col 1</th><th style=\\"border:1px solid #e5e7eb;padding:8px\\">Col 2</th></tr>\\n  <tr><td style=\\"border:1px solid #e5e7eb;padding:8px\\">Val</td><td style=\\"border:1px solid #e5e7eb;padding:8px\\">Val</td></tr>\\n</table>','')" style="padding:3px 8px;background:#fff;border:1px solid #d1d5db;border-radius:4px;font-size:11px;cursor:pointer">Table</button>
+              <button type="button" onclick="toggleDescPreview('e-dh-${id}','e-dhp-${id}')" style="padding:3px 8px;background:#1e3a99;color:#fff;border:none;border-radius:4px;font-size:11px;cursor:pointer;margin-left:auto">Preview</button>
+            </div>
+            <textarea id="e-dh-${id}" rows="6" style="width:100%;padding:10px 12px;border:none;font-size:12px;font-family:monospace;outline:none;resize:vertical;background:#fff">${(p.descHtml||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</textarea>
+          </div>
+          <div id="e-dhp-${id}" style="display:none;border:1.5px solid #1e3a99;border-radius:7px;padding:14px;margin-top:6px;background:#fff;font-size:14px;line-height:1.7"></div>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Image URL</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+            <input class="inline-input" id="e-img-${id}" value="${p.image.replace(/"/g,'&quot;')}" placeholder="Image URL" style="flex:1;min-width:200px" oninput="document.getElementById('previewImg-${id}').src=this.value">
+            <button class="btn-upload" onclick="pasteImageTo('e-img-${id}','previewImg-${id}',null)">&#128203; Paste</button>
+            <label class="btn-upload" style="cursor:pointer">
+              &#128194; Upload
+              <input type="file" accept="image/*" style="display:none" onchange="uploadImage(${id},this)">
+            </label>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-save" style="padding:8px 20px;font-size:13px" onclick="saveRow(${id})">&#10003; Save Changes</button>
+          <button class="btn-cancel" style="padding:8px 16px;font-size:13px" onclick="reloadAndKeepRow(${id}, window.scrollY)">Cancel</button>
+        </div>
+      </div>
+    </td>`;
+  window.scrollTo({ top: currentY, behavior: 'auto' });
+}
+
+async function uploadImage(id, input) {
+  if (!input.files[0]) return;
+  setStatus('Uploading image...');
+  const form = new FormData();
+  form.append('image', input.files[0]);
+  try {
+    const res = await fetch('/api/products/upload-image', {
+      method: 'POST', headers: { 'x-admin-token': TOKEN }, body: form
+    });
+    const json = await res.json();
+    if (res.ok) {
+      document.getElementById(`e-img-${id}`).value = json.url;
+      document.getElementById(`previewImg-${id}`).src = json.url;
+      setStatus('Image uploaded!');
+    } else throw new Error(json.error);
+  } catch (e) { setStatus(e.message, true); }
+}
+
+async function saveRow(id) {
+  const name     = document.getElementById(`e-name-${id}`).value.trim();
+  const category = document.getElementById(`e-cat-${id}`).value;
+  const sub      = document.getElementById(`e-sub-${id}`).value.trim();
+  const price    = parseFloat(document.getElementById(`e-price-${id}`).value) || 0;
+  const image    = document.getElementById(`e-img-${id}`).value.trim();
+  const desc     = document.getElementById(`e-desc-${id}`).value.trim();
+  const units    = document.getElementById(`e-units-${id}`).value.trim();
+  const dhEl     = document.getElementById(`e-dh-${id}`);
+  const descHtml = dhEl ? dhEl.value.trim() : '';
+  if (!name) { setStatus('Name is required', true); return; }
+  try {
+    const res = await fetch(`/api/products/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': TOKEN },
+      body: JSON.stringify({ name, category, subcategory: sub, price, image, description: desc, descHtml, units })
+    });
+    if (!res.ok) throw new Error((await res.json()).error);
+    setStatus('Product updated!');
+    await reloadAndKeepRow(id, window.scrollY);
+  } catch (e) { setStatus(e.message, true); }
+}
+
+async function deleteProduct(id, name) {
+  if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+  try {
+    const res = await fetch(`/api/products/${id}`, {
+      method: 'DELETE', headers: { 'x-admin-token': TOKEN }
+    });
+    if (!res.ok) throw new Error((await res.json()).error);
+    setStatus(`"${name}" deleted.`);
+    loadProducts();
+  } catch (e) { setStatus(e.message, true); }
+}
+
+// ── ADD PRODUCT ───────────────────────────────────────────────
+async function addProduct() {
+  const name     = document.getElementById('addName').value.trim();
+  const category = document.getElementById('addCategory').value;
+  const sub      = document.getElementById('addSubcategory').value.trim();
+  const price    = parseFloat(document.getElementById('addPrice').value) || 0;
+  const image    = document.getElementById('addImage').value.trim();
+  const desc     = document.getElementById('addDesc').value.trim();
+  const slug     = document.getElementById('addSlug').value.trim();
+  const units    = document.getElementById('addUnits').value.trim();
+  const descHtml = document.getElementById('addDescHtml').value.trim();
+  if (!name) { document.getElementById('addStatus').style.color='#dc2626'; document.getElementById('addStatus').textContent='Name is required.'; return; }
+  try {
+    const res = await fetch('/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': TOKEN },
+      body: JSON.stringify({ name, category, subcategory: sub, price, image, description: desc, descHtml, units, slug })
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error);
+    document.getElementById('addStatus').style.color='#16a34a';
+    document.getElementById('addStatus').textContent='Product added!';
+    document.getElementById('addName').value='';
+    document.getElementById('addSubcategory').value='';
+    document.getElementById('addPrice').value='';
+    document.getElementById('addImage').value='';
+    document.getElementById('addImgPreview').style.display='none';
+    document.getElementById('addDesc').value='';
+    document.getElementById('addDescHtml').value='';
+    document.getElementById('addDescPreview').style.display='none';
+    document.getElementById('addUnits').value='';
+    document.getElementById('addSlug').value='';
+    setTimeout(() => document.getElementById('addStatus').textContent='', 3000);
+    loadProducts();
+  } catch (e) {
+    document.getElementById('addStatus').style.color='#dc2626';
+    document.getElementById('addStatus').textContent=e.message;
+  }
+}
+
+function setStatus(msg, isErr = false) {
+  const el = document.getElementById('tableStatus');
+  el.textContent = msg;
+  el.className = 'status-bar' + (isErr ? ' err' : '');
+  setTimeout(() => { if (el.textContent === msg) el.textContent = ''; }, 4000);
+}
+
+// ── RICH DESC EDITOR HELPERS ──────────────────────────────────
+function insertDescTag(taId, open, close) {
+  const ta = document.getElementById(taId);
+  if (!ta) return;
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const selected = ta.value.substring(start, end);
+  const replacement = open + selected + close;
+  ta.value = ta.value.substring(0, start) + replacement + ta.value.substring(end);
+  ta.selectionStart = start + open.length;
+  ta.selectionEnd   = start + open.length + selected.length;
+  ta.focus();
+}
+
+async function insertDescImage(taId, input, statusId) {
+  if (!input.files[0]) return;
+  const statusEl = document.getElementById(statusId);
+  if (statusEl) { statusEl.style.color='#1e3a99'; statusEl.textContent='Uploading image...'; }
+  try {
+    const url = await uploadFileBlob(input.files[0], input.files[0].name);
+    const ta = document.getElementById(taId);
+    if (!ta) return;
+    const tag = `<img src="${url}" style="max-width:100%;border-radius:6px;margin:12px 0;display:block">`;
+    const pos = ta.selectionStart;
+    ta.value = ta.value.substring(0, pos) + tag + ta.value.substring(pos);
+    ta.selectionStart = ta.selectionEnd = pos + tag.length;
+    ta.focus();
+    if (statusEl) { statusEl.style.color='#16a34a'; statusEl.textContent='Image inserted!'; }
+    setTimeout(() => { if (statusEl && statusEl.textContent === 'Image inserted!') statusEl.textContent=''; }, 3000);
+  } catch(e) {
+    if (statusEl) { statusEl.style.color='#dc2626'; statusEl.textContent=e.message; }
+  }
+  input.value = '';
+}
+
+function toggleDescPreview(taId, previewId) {
+  const ta = document.getElementById(taId);
+  const pv = document.getElementById(previewId);
+  if (!ta || !pv) return;
+  if (pv.style.display === 'none') {
+    pv.innerHTML = ta.value || '<em style="color:#9ca3af">Nothing to preview yet.</em>';
+    pv.style.display = 'block';
+  } else {
+    pv.style.display = 'none';
+  }
+}
+
+// ── BULK EDIT ─────────────────────────────────────────────────
+function updateBulkSubcats() {
+  const cat = document.getElementById('bulkCat').value;
+  const subSel = document.getElementById('bulkSub');
+  subSel.innerHTML = '<option value="">-- Select Group --</option>';
+  document.getElementById('bulkPreview').style.display = 'none';
+  document.getElementById('bulkApplyBtn').disabled = true;
+  if (!cat) return;
+  const subs = [...new Set(products.filter(p => p.category === cat).map(p => p.subcategory || '(none)'))].sort();
+  subs.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s === '(none)' ? '' : s;
+    o.textContent = s;
+    subSel.appendChild(o);
+  });
+}
+
+function getBulkGroup() {
+  const cat = document.getElementById('bulkCat').value;
+  const sub = document.getElementById('bulkSub').value;
+  if (!cat || document.getElementById('bulkSub').selectedIndex === 0) return [];
+  return products.filter(p => p.category === cat && (p.subcategory || '') === sub);
+}
+
+function updateBulkPreview() {
+  const group = getBulkGroup();
+  const preview = document.getElementById('bulkPreview');
+  const count = document.getElementById('bulkCount');
+  const thumbs = document.getElementById('bulkThumbs');
+  const btn = document.getElementById('bulkApplyBtn');
+  if (!group.length) { preview.style.display = 'none'; btn.disabled = true; return; }
+  count.textContent = `${group.length} product${group.length > 1 ? 's' : ''} in this group`;
+  thumbs.innerHTML = group.slice(0, 5).map(p =>
+    `<img src="${p.image}" alt="${p.name}" title="${p.name}" onerror="this.src='https://placehold.co/64x48/1e3a99/white?text=P'">`
+  ).join('');
+  preview.style.display = 'flex';
+  btn.disabled = false;
+}
+
+function previewBulkImg() {
+  const url = document.getElementById('bulkImgUrl').value.trim();
+  const wrap = document.getElementById('bulkImgPreviewWrap');
+  const img = document.getElementById('bulkImgPreviewImg');
+  if (url) { img.src = url; wrap.style.display = 'flex'; }
+  else wrap.style.display = 'none';
+}
+
+async function applyBulkEdit() {
+  const group = getBulkGroup();
+  if (!group.length) return;
+  const newImg  = document.getElementById('bulkImgUrl').value.trim();
+  const newSub  = document.getElementById('bulkNewSub').value.trim();
+  const newDesc = document.getElementById('bulkDesc').value.trim();
+  if (!newImg && !newSub && !newDesc) {
+    setBulkStatus('Enter a new image, subcategory, or description to apply.', true); return;
+  }
+  const btn = document.getElementById('bulkApplyBtn');
+  btn.disabled = true;
+  setBulkStatus(`Updating ${group.length} products...`);
+  let ok = 0, fail = 0;
+  for (const p of group) {
+    try {
+      const body = {};
+      if (newImg)  body.image = newImg;
+      if (newSub)  body.subcategory = newSub;
+      if (newDesc) body.description = newDesc;
+      const res = await fetch(`/api/products/${p.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'x-admin-token': TOKEN },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) ok++; else fail++;
+    } catch { fail++; }
+  }
+  setBulkStatus(fail ? `Done: ${ok} updated, ${fail} failed.` : `Done! ${ok} products updated.`, !!fail);
+  btn.disabled = false;
+  await loadProducts();
+  updateBulkSubcats();
+  document.getElementById('bulkImgUrl').value = '';
+  document.getElementById('bulkNewSub').value = '';
+  document.getElementById('bulkDesc').value = '';
+  document.getElementById('bulkImgPreviewWrap').style.display = 'none';
+}
+
+function setBulkStatus(msg, isErr = false) {
+  const el = document.getElementById('bulkStatus');
+  el.textContent = msg;
+  el.className = 'bulk-status ' + (isErr ? 'err' : 'ok');
+}
+
+// ── ADD FORM PASTE/UPLOAD ─────────────────────────────────────
+function updateAddPreview() {
+  const url = document.getElementById('addImage').value.trim();
+  const img = document.getElementById('addImgPreview');
+  if (url) { img.src = url; img.style.display = 'block'; }
+  else img.style.display = 'none';
+}
+
+async function pasteImageToAdd() {
+  try {
+    const items = await navigator.clipboard.read();
+    for (const item of items) {
+      const imgType = item.types.find(t => t.startsWith('image/'));
+      if (!imgType) continue;
+      const blob = await item.getType(imgType);
+      document.getElementById('addStatus').style.color = '#1e3a99';
+      document.getElementById('addStatus').textContent = 'Uploading...';
+      const url = await uploadFileBlob(blob, 'pasted.' + imgType.split('/')[1]);
+      document.getElementById('addImage').value = url;
+      updateAddPreview();
+      document.getElementById('addStatus').style.color = '#16a34a';
+      document.getElementById('addStatus').textContent = 'Image pasted!';
+      return;
+    }
+    document.getElementById('addStatus').style.color = '#dc2626';
+    document.getElementById('addStatus').textContent = 'No image in clipboard.';
+  } catch {
+    document.getElementById('addStatus').style.color = '#dc2626';
+    document.getElementById('addStatus').textContent = 'Clipboard blocked — use Upload.';
+  }
+}
+
+async function uploadFileToAdd(input) {
+  if (!input.files[0]) return;
+  document.getElementById('addStatus').style.color = '#1e3a99';
+  document.getElementById('addStatus').textContent = 'Uploading...';
+  try {
+    const url = await uploadFileBlob(input.files[0], input.files[0].name);
+    document.getElementById('addImage').value = url;
+    updateAddPreview();
+    document.getElementById('addStatus').style.color = '#16a34a';
+    document.getElementById('addStatus').textContent = 'Image uploaded!';
+  } catch (e) {
+    document.getElementById('addStatus').style.color = '#dc2626';
+    document.getElementById('addStatus').textContent = e.message;
+  }
+}
+
+// ── PASTE / UPLOAD HELPERS ────────────────────────────────────
+async function uploadFileBlob(blob, filename) {
+  const form = new FormData();
+  form.append('image', new File([blob], filename, { type: blob.type }));
+  const res = await fetch('/api/products/upload-image', {
+    method: 'POST', headers: { 'x-admin-token': TOKEN }, body: form
+  });
+  if (!res.ok) throw new Error((await res.json()).error || 'Upload failed');
+  return (await res.json()).url;
+}
+
+async function pasteImageTo(inputId, previewId, previewWrapId) {
+  try {
+    const items = await navigator.clipboard.read();
+    for (const item of items) {
+      const imgType = item.types.find(t => t.startsWith('image/'));
+      if (!imgType) continue;
+      const blob = await item.getType(imgType);
+      setBulkStatus('Uploading pasted image...');
+      const url = await uploadFileBlob(blob, 'pasted.' + imgType.split('/')[1]);
+      document.getElementById(inputId).value = url;
+      const prev = document.getElementById(previewId);
+      if (prev) prev.src = url;
+      if (previewWrapId) document.getElementById(previewWrapId).style.display = 'flex';
+      setBulkStatus('Image pasted and uploaded!');
+      previewBulkImg();
+      return;
+    }
+    setBulkStatus('No image found in clipboard. Copy an image first.', true);
+  } catch (e) {
+    setBulkStatus('Clipboard access denied. Use Upload instead.', true);
+  }
+}
+
+async function uploadFileTo(input, inputId, previewId, previewWrapId) {
+  if (!input.files[0]) return;
+  setBulkStatus('Uploading...');
+  try {
+    const url = await uploadFileBlob(input.files[0], input.files[0].name);
+    document.getElementById(inputId).value = url;
+    const prev = document.getElementById(previewId);
+    if (prev) prev.src = url;
+    if (previewWrapId) document.getElementById(previewWrapId).style.display = 'flex';
+    setBulkStatus('Image uploaded!');
+    previewBulkImg();
+  } catch (e) { setBulkStatus(e.message, true); }
+}
+
+// Global Ctrl+V listener — pastes image when bulk URL input is focused
+document.addEventListener('paste', async (e) => {
+  const focused = document.activeElement;
+  if (!focused || focused.id !== 'bulkImgUrl') return;
+  const item = [...e.clipboardData.items].find(i => i.type.startsWith('image/'));
+  if (!item) return;
+  e.preventDefault();
+  setBulkStatus('Uploading pasted image...');
+  try {
+    const url = await uploadFileBlob(item.getAsFile(), 'pasted.png');
+    document.getElementById('bulkImgUrl').value = url;
+    document.getElementById('bulkImgPreviewImg').src = url;
+    document.getElementById('bulkImgPreviewWrap').style.display = 'flex';
+    setBulkStatus('Image pasted and uploaded!');
+  } catch (e) { setBulkStatus(e.message, true); }
+});
+
+
+// ── EXPORT HELPERS ────────────────────────────────────────────
+function setExportProgress(pct, msg) {
+  document.getElementById('exportProgress').style.display = 'block';
+  document.getElementById('exportBarFill').style.width = pct + '%';
+  document.getElementById('exportMsg').textContent = msg;
+}
+function clearExportProgress() {
+  setTimeout(() => {
+    document.getElementById('exportProgress').style.display = 'none';
+    document.getElementById('exportBarFill').style.width = '0%';
+    document.getElementById('btnPdf').disabled = false;
+    document.getElementById('btnXl').disabled = false;
+  }, 1500);
+}
+
+async function imgToBase64(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        const MAX = 80;
+        const ratio = Math.min(MAX / img.width, MAX / img.height);
+        canvas.width  = img.width  * ratio;
+        canvas.height = img.height * ratio;
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', 0.75));
+      } catch { resolve(null); }
+    };
+    img.onerror = () => resolve(null);
+    img.src = src.startsWith('/') ? window.location.origin + src : src;
+  });
+}
+
+// ── EXPORT PDF ────────────────────────────────────────────────
+async function exportPDF() {
+  if (!products.length) { alert('No products loaded.'); return; }
+  document.getElementById('btnPdf').disabled = true;
+  document.getElementById('btnXl').disabled = true;
+  setExportProgress(2, 'Loading jsPDF…');
+
+  const script1 = await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  const script2 = await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
+  if (!script1 || !script2) { alert('Failed to load PDF library. Check internet connection.'); clearExportProgress(); return; }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+
+  // Header
+  doc.setFillColor(30, 58, 153);
+  doc.rect(0, 0, pageW, 18, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(13); doc.setFont('helvetica', 'bold');
+  doc.text('Pivot Communication — Product Catalogue', 10, 11);
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+  doc.text(new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'}), pageW - 10, 11, { align: 'right' });
+
+  const rows = [];
+  const imgCache = [];
+  const total = products.length;
+
+  for (let i = 0; i < total; i++) {
+    const p = products[i];
+    setExportProgress(5 + Math.round((i / total) * 70), `Loading images… (${i+1}/${total})`);
+    const b64 = await imgToBase64(p.image);
+    imgCache.push(b64);
+    rows.push([
+      '',  // image cell — drawn in didDrawCell
+      p.name,
+      p.category.toUpperCase(),
+      p.subcategory || '—',
+      p.price > 0 ? 'EGP ' + p.price.toLocaleString() : '—',
+      (p.description || '').slice(0, 120)
+    ]);
+  }
+
+  setExportProgress(78, 'Generating PDF…');
+
+  doc.autoTable({
+    startY: 22,
+    head: [['', 'Product Name', 'Category', 'Subcategory', 'Price', 'Description']],
+    body: rows,
+    columnStyles: {
+      0: { cellWidth: 22, halign: 'center' },
+      1: { cellWidth: 70, fontStyle: 'bold' },
+      2: { cellWidth: 26, halign: 'center' },
+      3: { cellWidth: 38 },
+      4: { cellWidth: 24, halign: 'right' },
+      5: { cellWidth: 90, fontSize: 7 }
+    },
+    rowPageBreak: 'avoid',
+    styles: { fontSize: 8, cellPadding: 3, valign: 'middle', overflow: 'linebreak' },
+    headStyles: { fillColor: [30, 58, 153], textColor: 255, fontStyle: 'bold', fontSize: 8 },
+    alternateRowStyles: { fillColor: [245, 247, 255] },
+    didDrawCell: (data) => {
+      if (data.section === 'body' && data.column.index === 0) {
+        const b64 = imgCache[data.row.index];
+        if (b64) {
+          const pad = 2;
+          const size = Math.min(data.cell.width, data.cell.height) - pad * 2;
+          const x = data.cell.x + (data.cell.width  - size) / 2;
+          const y = data.cell.y + (data.cell.height - size) / 2;
+          try { doc.addImage(b64, 'JPEG', x, y, size, size); } catch {}
+        }
+      }
+    },
+    margin: { left: 8, right: 8 }
+  });
+
+  // Footer on each page
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFontSize(7); doc.setTextColor(150);
+    doc.text(`Page ${i} of ${pageCount}  |  Pivot Communication  |  Admin@pivotcommunication.net`, pageW / 2, pageH - 4, { align: 'center' });
+  }
+
+  setExportProgress(95, 'Saving file…');
+  doc.save(`pivot-products-${new Date().toISOString().slice(0,10)}.pdf`);
+  setExportProgress(100, `Done! ${total} products exported.`);
+  clearExportProgress();
+}
+
+// ── EXPORT EXCEL ──────────────────────────────────────────────
+async function exportExcel() {
+  if (!products.length) { alert('No products loaded.'); return; }
+  document.getElementById('btnPdf').disabled = true;
+  document.getElementById('btnXl').disabled = true;
+  setExportProgress(5, 'Loading SheetJS…');
+
+  const ok = await loadScript('https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js');
+  if (!ok) { alert('Failed to load Excel library. Check internet connection.'); clearExportProgress(); return; }
+
+  setExportProgress(30, 'Building spreadsheet…');
+  const XLSX = window.XLSX;
+
+  const origin = window.location.origin;
+  const rows = products.map(p => ({
+    'ID':          p.id,
+    'Name':        p.name,
+    'Category':    p.category,
+    'Subcategory': p.subcategory || '',
+    'Price (EGP)': p.price > 0 ? p.price : '',
+    'Units':       p.units || '',
+    'Short Description': p.description || '',
+    'Image URL':   p.image ? origin + p.image : p.image || '',
+    'Slug':        p.slug || ''
+  }));
+
+  const ws = XLSX.utils.json_to_sheet(rows);
+
+  // Column widths
+  ws['!cols'] = [
+    {wch:6},{wch:60},{wch:12},{wch:34},{wch:12},{wch:14},{wch:80},{wch:60},{wch:30}
+  ];
+
+  // Style header row (SheetJS Community doesn't support styling, so we just freeze the top row)
+  ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Products');
+
+  // Add a summary sheet
+  const summary = [
+    ['Pivot Communication — Product Export'],
+    ['Generated:', new Date().toLocaleString()],
+    ['Total Products:', products.length],
+    [],
+    ['Category', 'Count'],
+    ...['copper','fibre','hdci','uhdci'].map(cat => [
+      cat.charAt(0).toUpperCase() + cat.slice(1),
+      products.filter(p => p.category === cat).length
+    ])
+  ];
+  const ws2 = XLSX.utils.aoa_to_sheet(summary);
+  ws2['!cols'] = [{wch:30},{wch:20}];
+  XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
+
+  setExportProgress(85, 'Saving file…');
+  XLSX.writeFile(wb, `pivot-products-${new Date().toISOString().slice(0,10)}.xlsx`);
+  setExportProgress(100, `Done! ${products.length} products exported.`);
+  clearExportProgress();
+}
+
+// ── LOAD SCRIPT HELPER ────────────────────────────────────────
+function loadScript(src) {
+  return new Promise(resolve => {
+    if (document.querySelector(`script[src="${src}"]`)) { resolve(true); return; }
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload  = () => resolve(true);
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+</script>
+</body>
+</html>
