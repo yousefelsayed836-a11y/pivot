@@ -46,67 +46,62 @@ function initHeader() {
 function initMobileMenu() {
   const toggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('nav');
-  const navList = nav && nav.querySelector('ul');
-  if (!toggle || !nav || !navList) return;
+  if (!toggle || !nav) return;
 
-  const isMobile = () => window.innerWidth <= 768;
   const closeAllMenus = () => {
-    nav.querySelectorAll('li.open').forEach(li => li.classList.remove('open'));
-    nav.querySelectorAll('li.open-sub').forEach(li => li.classList.remove('open-sub'));
-  };
-  const closeDrawer = () => {
-    nav.classList.remove('open');
-    toggle.classList.remove('open');
-    closeAllMenus();
+    document.querySelectorAll('nav li.open').forEach(li => li.classList.remove('open'));
+    document.querySelectorAll('nav li.open-sub').forEach(li => li.classList.remove('open-sub'));
   };
 
-  toggle.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  toggle.addEventListener('click', () => {
     const willOpen = !nav.classList.contains('open');
     nav.classList.toggle('open', willOpen);
     toggle.classList.toggle('open', willOpen);
     if (!willOpen) closeAllMenus();
   });
 
-  Array.from(navList.children).forEach(item => {
-    const link = item.querySelector('a');
-    const dropdown = Array.from(item.children).find(el => el.classList && el.classList.contains('dropdown'));
-    if (!link || !dropdown) return;
+  document.querySelectorAll('nav > ul > li > a').forEach(link => {
+    const parent = link.parentElement;
+    if (parent.querySelector(':scope > .dropdown')) {
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          const wasOpen = parent.classList.contains('open');
+          document.querySelectorAll('nav > ul > li.open').forEach(li => {
+            if (li !== parent) li.classList.remove('open');
+          });
+          document.querySelectorAll('nav li.open-sub').forEach(li => li.classList.remove('open-sub'));
+          parent.classList.toggle('open', !wasOpen);
+        }
+      });
+    }
+  });
+
+  document.querySelectorAll('nav .dropdown li.has-sub > a').forEach(link => {
+    const parent = link.parentElement;
     link.addEventListener('click', (e) => {
-      if (!isMobile()) return;
-      e.preventDefault();
-      const wasOpen = item.classList.contains('open');
-      Array.from(navList.children).forEach(li => { if (li !== item) li.classList.remove('open'); });
-      nav.querySelectorAll('li.open-sub').forEach(li => li.classList.remove('open-sub'));
-      item.classList.toggle('open', !wasOpen);
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        const wasOpen = parent.classList.contains('open-sub');
+        parent.parentElement.querySelectorAll(':scope > li.open-sub').forEach(li => {
+          if (li !== parent) li.classList.remove('open-sub');
+        });
+        parent.classList.toggle('open-sub', !wasOpen);
+      }
     });
   });
 
-  nav.querySelectorAll('.dropdown li.has-sub').forEach(item => {
-    const link = item.querySelector('a');
-    if (!link) return;
-    link.addEventListener('click', (e) => {
-      if (!isMobile()) return;
-      e.preventDefault();
-      e.stopPropagation();
-      const wasOpen = item.classList.contains('open-sub');
-      const siblings = item.parentElement ? Array.from(item.parentElement.children) : [];
-      siblings.forEach(li => { if (li !== item) li.classList.remove('open-sub'); });
-      item.classList.toggle('open-sub', !wasOpen);
-    });
+  document.querySelectorAll('nav a').forEach(link => {
+    if (!link.parentElement.querySelector('.dropdown, .sub-dropdown')) {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          nav.classList.remove('open');
+          toggle.classList.remove('open');
+          closeAllMenus();
+        }
+      });
+    }
   });
-
-  nav.addEventListener('click', (e) => {
-    if (!isMobile()) return;
-    const link = e.target.closest && e.target.closest('a');
-    if (!link) return;
-    const item = link.parentElement;
-    if (item && (item.querySelector('.dropdown') || item.querySelector('.sub-dropdown'))) return;
-    closeDrawer();
-  });
-
-  window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
 }
 
 // ── CONTACT FORM ──────────────────────────────────────────────
