@@ -168,6 +168,77 @@
     .export-bar-wrap { background:#e5e7eb; border-radius:20px; height:6px; overflow:hidden; margin-bottom:6px; }
     .export-bar-fill { height:100%; background:#1e3a99; border-radius:20px; transition:width .15s; }
     .export-msg { font-size:12px; color:#374151; }
+
+
+    /* Mobile dashboard polish */
+    *, *::before, *::after { box-sizing: border-box; }
+    .admin-table-scroll { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .admin-edit-panel { background:#fff; border:1px solid #dbe5f0; border-radius:12px; padding:18px; margin:4px; box-shadow:0 10px 30px rgba(15,23,42,.06); }
+    .admin-edit-grid { display:grid; grid-template-columns:80px 1fr 1fr 1fr 1fr 1fr; gap:10px; margin-bottom:12px; align-items:start; }
+
+    @media (max-width: 760px) {
+      body { background:#fff; overflow-x:hidden; }
+      .login-screen { padding:18px; }
+      .login-box { width:100%; max-width:380px; padding:34px 22px; border-radius:14px; }
+      .admin-header { position:sticky; top:0; z-index:20; padding:12px 14px; margin-bottom:18px; gap:10px; }
+      .admin-header > div { gap:10px !important; min-width:0; }
+      .admin-header img { height:38px !important; flex:0 0 auto; }
+      .admin-header h1 { font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+      .logout-btn { padding:8px 12px; flex:0 0 auto; }
+      .admin-wrap { padding:0 12px 36px; max-width:none; }
+      .export-card, .add-product-card, .bulk-card, .table-card { border-radius:14px; padding:18px 14px; margin-bottom:16px; box-shadow:none; border:1px solid #e8edf3; }
+      .table-card { padding:0; overflow:hidden; }
+      .quick-nav { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px; }
+      .quick-nav a { justify-content:center; min-height:42px; padding:9px 8px; font-size:12px; text-align:center; }
+      .add-grid, .bulk-row { grid-template-columns:1fr !important; gap:10px; }
+      .add-grid .full, .add-grid > div, .bulk-row > div { grid-column:1 / -1 !important; }
+      .add-grid input, .add-grid select, .add-grid textarea, .bulk-row input, .bulk-row select, .bulk-new-img input, .bulk-new-img textarea, .inline-input, .table-search { font-size:16px !important; min-height:42px; }
+      .add-actions, .export-btns { display:grid; grid-template-columns:1fr; gap:8px; }
+      .btn-add, .btn-bulk, .btn-export-pdf, .btn-export-xl { width:100%; min-height:44px; }
+      .bulk-new-img > div[style*="display:flex"], .admin-edit-panel div[style*="display:flex"] { align-items:stretch !important; }
+      .bulk-new-img input, .admin-edit-panel input[id^="e-img-"] { flex-basis:100% !important; min-width:0 !important; }
+      .bulk-new-img button, .bulk-new-img label, .admin-edit-panel .btn-upload { flex:1 1 120px; text-align:center; justify-content:center; }
+      .table-top { flex-direction:column; align-items:stretch; gap:10px; padding:16px 14px; }
+      .table-search { width:100%; }
+      .admin-table-scroll { overflow-x:visible; }
+      #prodTable, #prodTable thead, #prodTable tbody, #prodTable tr, #prodTable td { display:block; width:100%; }
+      #prodTable thead { display:none; }
+      #prodTable tr { background:#fff; border-top:1px solid #edf1f5; padding:12px 14px; }
+      #prodTable tr:hover td { background:transparent; }
+      #prodTable td { border:0; padding:7px 0; display:flex; align-items:center; justify-content:space-between; gap:12px; text-align:right; }
+      #prodTable td::before { content:""; flex:0 0 92px; font-size:11px; font-weight:800; color:#7a8796; text-transform:uppercase; letter-spacing:.05em; text-align:left; }
+      #prodTable td:nth-child(1)::before { content:"Image"; }
+      #prodTable td:nth-child(2)::before { content:"Name"; }
+      #prodTable td:nth-child(3)::before { content:"Category"; }
+      #prodTable td:nth-child(4)::before { content:"Group"; }
+      #prodTable td:nth-child(5)::before { content:"Price"; }
+      #prodTable td:nth-child(6)::before { content:"Actions"; }
+      #prodTable td:nth-child(2) { max-width:none !important; align-items:flex-start; }
+      #prodTable td:nth-child(2) > strong, #prodTable td:nth-child(2) > div { text-align:right; }
+      .prod-img-thumb { width:86px; height:64px; border-radius:8px; }
+      .btn-edit, .btn-del { min-height:36px; padding:8px 12px; border-radius:7px; background:#f4f7fb; margin:0 0 0 6px; }
+      .btn-del { color:#dc2626; }
+      #prodTable tr.editing-row { padding:0; border-top:1px solid #dbe5f0; }
+      #prodTable tr.editing-row td { display:block; padding:0; }
+      #prodTable tr.editing-row td::before { display:none; }
+      .admin-edit-panel { margin:0; border:0; border-radius:0; padding:14px; box-shadow:none; background:#f8fbff; }
+      .admin-edit-grid { grid-template-columns:1fr !important; gap:10px; }
+      .admin-edit-grid img { width:100% !important; max-height:190px; height:auto !important; object-fit:contain !important; background:#fff; }
+      .admin-edit-panel textarea { min-height:96px; }
+      .admin-edit-panel textarea[id^="e-dh-"] { min-height:160px; font-size:13px !important; }
+      .admin-edit-panel > div:last-child { display:grid !important; grid-template-columns:1fr 1fr; gap:8px !important; }
+      .admin-edit-panel .btn-save, .admin-edit-panel .btn-cancel { width:100%; min-height:42px; margin:0; }
+      .status-bar { padding:10px 14px; }
+    }
+
+    @media (max-width: 420px) {
+      .quick-nav { grid-template-columns:1fr; }
+      #prodTable td { display:block; text-align:left; }
+      #prodTable td::before { display:block; margin-bottom:4px; }
+      #prodTable td:nth-child(2) > strong, #prodTable td:nth-child(2) > div { text-align:left; }
+      .admin-edit-panel > div:last-child { grid-template-columns:1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -365,7 +436,7 @@
         <h2>All Products <span id="prodCount" style="font-size:13px;color:#6b7280;font-weight:400"></span></h2>
         <input class="table-search" type="text" id="searchInput" placeholder="Search products..." oninput="filterTable()">
       </div>
-      <div style="overflow-x:auto">
+      <div class="admin-table-scroll">
         <table id="prodTable">
           <thead>
             <tr>
@@ -510,8 +581,8 @@ function editRow(id) {
   const safeDesc = (p.description || '').replace(/`/g, '\\`').replace(/\$/g, '\\$');
   row.innerHTML = `
     <td colspan="6" style="padding:0">
-      <div style="background:#f0f4ff;border:2px solid #1e3a99;border-radius:8px;padding:18px;margin:4px">
-        <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px;align-items:start">
+      <div class="admin-edit-panel">
+        <div class="admin-edit-grid">
           <div>
             <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:4px">Image Preview</div>
             <img id="previewImg-${id}" src="${p.image}" style="width:72px;height:56px;object-fit:cover;border-radius:6px;border:2px solid #e5e7eb" onerror="this.src='https://placehold.co/72x56/1e3a99/white?text=P'">
