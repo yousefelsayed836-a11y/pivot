@@ -405,6 +405,9 @@ const AR = [
   ["Patch Cords","كوابل التوصيل"],
   ["Build Your Hyperscale Infrastructure","ابنِ بنيتك التحتية فائقة السعة"],
   ["Our specialists can help you plan and deploy a Hyperscale UHDCi® cabling system tailored to your data centre's needs.","يساعدك متخصصونا في تخطيط وتنفيذ نظام كابلات UHDCi® فائق السعة والمصمم وفق احتياجات مركز بياناتك."],
+  ["Agora Mall – Building A","أجورا مول – المبنى A"],
+  ["Product Details","تفاصيل المنتج"],
+  ["Cat 5e through Cat 8 cables, patch panels, keystone jacks, faceplates, and pre-terminated copper assemblies for enterprise structured cabling — from workstation to comms room.","كابلات من Cat 5e إلى Cat 8، ولوحات توصيل، ومقابس Keystone، وواجهات، وتجميعات نحاسية مُنهية مسبقًا للكابلات الهيكلية المؤسسية، من محطة العمل إلى غرفة الاتصالات."],
   // Contact page
   ['Get In Touch','تواصل معنا'],
   ['Send Message','إرسال الرسالة'],
